@@ -3,7 +3,9 @@ from enum import IntEnum, IntFlag
 from typing import TypeVar, Union, Optional, Annotated, NewType
 
 from .emojis import Emoji
+from .interactions import InteractionType, MessageInteraction, MessageComponent
 from .role import Role
+from .sticker import Sticker, StickerItem
 from .types.snowflake import SnowFlake
 from .base import BaseObject
 from .guild import GuildID, GuildMember
@@ -245,10 +247,6 @@ class Channel(BaseObject):
     permission_overwrites: list[Overwrite] = field(default_factory=list)
 
 
-class ReplyMessage(Message):
-    pass
-
-
 @dataclass
 class Message(BaseObject):
     id: MessageID
@@ -276,7 +274,9 @@ class Message(BaseObject):
     application_id: ApplicationID
     message_reference: MessageReference
     flags: MessageFlags
-    referenced_message: ReplyMessage
-
-
-ReplyMessage = NewType('ReplyMessage', Message)
+    referenced_message: Message     # TODO: Fix this shit
+    interaction: MessageInteraction
+    thread: Channel
+    components: list[MessageComponent]
+    sticker_items: list[StickerItem]
+    stickers: list[Sticker]
