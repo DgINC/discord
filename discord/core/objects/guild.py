@@ -1,13 +1,17 @@
 from dataclasses import dataclass, field
-from typing import List
 from enum import IntEnum, IntFlag
+from typing import TypeVar
 
-from .types.snowflake import GuildID, OwnerID, AppID, ChannelID
+from .application import ApplicationID
+from .channel import ChannelID, Channel
+from .types.snowflake import SnowFlake
 from .base import BaseObject
 from .role import Role
 from .emojis import Emoji
-from .user import User
+from .user import User, UserID
 from .voice import VoiceState
+
+GuildID = TypeVar('GuildID', bound=SnowFlake)
 
 
 class VerificationLevel(IntEnum):
@@ -86,7 +90,7 @@ class GuildMember(BaseObject):
     user: User
     nick: str
     avatar: str
-    roles: List[Role.id]
+    roles: list[Role.id]
     joined_at: int
     premium_since: int
     deaf: bool
@@ -104,17 +108,17 @@ class Guild(BaseObject):
     icon_hash: str
     splash: str
     description: str
-    emojis: List[Emoji]
+    emojis: list[Emoji]
     banner: str
     owner: bool
-    owner_id: OwnerID
-    application_id: AppID
+    owner_id: UserID
+    application_id: ApplicationID
     afk_channel_id: ChannelID
     afk_timeout: int
     system_channel_id: ChannelID
     widget_enabled: bool
     verification_level: VerificationLevel
-    roles: List[Role]
+    roles: list[Role]
     default_message_notifications: MessageNotificationLevel
     mfa_level: MFALevel
     explicit_content_filter: ExplicitContentFilterLevel
@@ -131,10 +135,11 @@ class Guild(BaseObject):
     large: bool
     unavailable: bool
     member_count: int
-    voice_states: List[VoiceState] = field(default_factory=List)
-    members: List[GuildMember] = field(default_factory=List)
-    channels: 
+    channels: list[Channel]
+    threads: list[Channel]
+    voice_states: list[VoiceState] = field(default_factory=list)
+    members: list[GuildMember] = field(default_factory=list)
     widget_channel_id: ChannelID = field(default=None)
     discovery_splash: str = field(default=None)
     region: str = field(default=None)
-    features: GuildFutures = field(default_factory=List)
+    features: GuildFutures = field(default_factory=list)

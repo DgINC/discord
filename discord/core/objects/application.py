@@ -1,8 +1,13 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
+from typing import TypeVar
+
 from .types.snowflake import SnowFlake
 from .user import User
 from .team import Team
 from .base import BaseObject
+
+ApplicationID = TypeVar('ApplicationID', bound=SnowFlake)
+
 
 ApplicationFlags = {
     'GATEWAY_PRESENCE': 1 << 12,
@@ -17,9 +22,7 @@ ApplicationFlags = {
 
 
 @dataclass
-class ApplicationObject(BaseObject):
-    __slots__ = User.avatar, User.discriminator, User.id, User.username
-
+class Application(BaseObject):
     id: SnowFlake
     name: str
     icon: str

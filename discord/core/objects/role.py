@@ -1,6 +1,10 @@
 from dataclasses import dataclass
-from .types.snowflake import RoleID, BotID, IntegrID
+from typing import TypeVar
+
+from .types.snowflake import SnowFlake, BotID, IntegrID
 from .base import BaseObject
+
+RoleID = TypeVar('RoleID', bound=SnowFlake)
 
 
 @dataclass

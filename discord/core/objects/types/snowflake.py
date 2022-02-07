@@ -30,13 +30,5 @@ class SnowFlakeTimestamp(SnowFlake[T]):
         return ret
 
 
-UserID = TypeVar('UserID', bound=SnowFlake)
-RoleID = TypeVar('RoleID', bound=SnowFlake)
-GuildID = TypeVar('GuildID', bound=SnowFlake)
-OwnerID = TypeVar('OwnerID', bound=SnowFlake)
 BotID = TypeVar('BotID', bound=SnowFlake)
 IntegrID = TypeVar('IntegrID', bound=SnowFlake)
-EmojiID = TypeVar('EmojiID', bound=SnowFlake)
-AppID = TypeVar('AppID', bound=SnowFlake)
-ChannelID = TypeVar('ChannelID', bound=SnowFlake)
-MessageID = TypeVar('MessageID', bound=SnowFlake)

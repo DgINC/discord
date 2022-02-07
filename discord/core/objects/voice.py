@@ -1,8 +1,10 @@
 from dataclasses import dataclass
 
-from .types.snowflake import GuildID, OwnerID, AppID, ChannelID, UserID
+from .channel import ChannelID
+from .types.snowflake import SnowFlake
 from .base import BaseObject
-from .guild import GuildMember
+from .guild import GuildMember, GuildID
+from .user import UserID
 
 
 @dataclass
@@ -20,3 +22,12 @@ class VoiceState(BaseObject):
     self_video: bool
     suppress: bool
     request_to_speak_timestamp: int
+
+
+@dataclass
+class VoiceRegion(BaseObject):
+    id: str
+    name: str
+    optional: bool
+    deprecated: bool
+    custom: bool

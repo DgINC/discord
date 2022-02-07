@@ -6,8 +6,6 @@ from .base import BaseObject
 
 @dataclass
 class TeamMember(BaseObject):
-    __slots__ = User.avatar, User.discriminator, User.id, User.username
-
     membership_state: int
     permissions: list[str]
     team_id: SnowFlake
