@@ -1,9 +1,9 @@
 from dataclasses import dataclass, field
 from enum import IntEnum, IntFlag
-from typing import TypeVar, Union, Optional, Annotated, NewType
+from typing import TypeVar, Union, Optional, Annotated, NewType, final
 
 from .emojis import Emoji
-from .interactions import InteractionType, MessageInteraction, MessageComponent
+from .interactions import MessageInteraction, MessageComponent
 from .role import Role
 from .sticker import Sticker, StickerItem
 from .types.snowflake import SnowFlake
@@ -23,6 +23,7 @@ AttachID = TypeVar('AttachID', bound=SnowFlake)
 EmbedType = {'rich', 'image', 'video', 'gifv', 'article', 'link'}
 
 
+@final
 class AutoArchiveDuration(IntEnum):
     HOUR = 60
     DAY = 1440
@@ -30,6 +31,7 @@ class AutoArchiveDuration(IntEnum):
     WEEK = 10080
 
 
+@final
 class ChannelType(IntEnum):
     GUILD_TEXT = 0
     DM = 1
@@ -44,6 +46,7 @@ class ChannelType(IntEnum):
     GUILD_STAGE_VOICE = 13
 
 
+@final
 class MessageType(IntEnum):
     DEFAULT = 0
     RECIPIENT_ADD = 1
@@ -70,6 +73,7 @@ class MessageType(IntEnum):
     CONTEXT_MENU_COMMAND = 23
 
 
+@final
 class MessageActivity(IntEnum):
     JOIN = 1
     SPECTATE = 2
@@ -77,11 +81,13 @@ class MessageActivity(IntEnum):
     JOIN_REQUEST = 5
 
 
+@final
 class VideoQualityMode(IntEnum):
     AUTO = 1
     FULL = 2
 
 
+@final
 class MessageFlags(IntFlag):
     CROSSPOSTED = 1 << 0
     IS_CROSSPOST = 1 << 1
@@ -274,7 +280,7 @@ class Message(BaseObject):
     application_id: ApplicationID
     message_reference: MessageReference
     flags: MessageFlags
-    referenced_message: Message     # TODO: Fix this shit
+    referenced_message: Optional[Message] = field(hash=False, compare=False, repr=False)
     interaction: MessageInteraction
     thread: Channel
     components: list[MessageComponent]
