@@ -3,12 +3,13 @@ from enum import IntEnum, IntFlag
 from typing import TypeVar
 
 from .application import ApplicationID
-from .channel import ChannelID, Channel
-from .types.snowflake import SnowFlake
 from .base import BaseObject
-from .role import Role
+from .channel import ChannelID, Channel
 from .emojis import Emoji
-from .user import User, UserID
+from .role import Role, RoleID
+from .types.snowflake import SnowFlake
+from .user import User
+from .user import UserID
 from .voice import VoiceState
 
 GuildID = TypeVar('GuildID', bound=SnowFlake)
@@ -90,7 +91,7 @@ class GuildMember(BaseObject):
     user: User
     nick: str
     avatar: str
-    roles: list[Role.id]
+    roles: list[RoleID]
     joined_at: int
     premium_since: int
     deaf: bool

@@ -1,11 +1,14 @@
 from dataclasses import dataclass
+
+from pydantic import BaseModel
+
 from .types.snowflake import SnowFlake
 from .user import User
 from .base import BaseObject
 
 
 @dataclass
-class TeamMember(BaseObject):
+class TeamMember(BaseModel):
     membership_state: int
     permissions: list[str]
     team_id: SnowFlake
@@ -13,7 +16,7 @@ class TeamMember(BaseObject):
 
 
 @dataclass
-class Team(BaseObject):
+class Team(BaseModel):
     icon: str
     id: SnowFlake
     members: list[TeamMember]

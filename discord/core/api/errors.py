@@ -1,37 +1,58 @@
-import json
-from types import SimpleNamespace
-from typing import TypeVar
-from dataclasses import dataclass, field
+import dataclasses
+from abc import ABC
+from typing import List, Any, Tuple, Type
+
+import orjson
+from pydantic.dataclasses import dataclass
+from pydantic.json import pydantic_encoder
 
 
-@dataclass
-class Errors(SimpleNamespace):
-    pass
+class MyConfig:
+    validate_assignment = False
+    require_by_default = False
 
 
-@dataclass
-class BaseError:
+class MetaObject(type):
+    def __new__(mcs, name: str, bases: Tuple[type, ...], dictionary: dict[str, Any], **kwargs: Any):
+        #print(mcs.__dict__)
+        #print(mcs)
+        return super(MetaObject, mcs).__new__(mcs, name, bases, dictionary)
+
+    def __init__(cls, name: str, bases: Tuple[type, ...], dictionary: dict[str, Any], **kwargs: Any):
+        super(MetaObject, cls).__init__(name, bases, dictionary)
+        #print(bases)
+        for key, val in dictionary.items():
+            print(val)
+        #print(dictionary)
+
+
+@dataclass(config=MyConfig)
+class BaseObject(object, metaclass=MetaObject):
+    def to_json(self) -> str:
+        # orjson.dumps returns bytes, to match standard json.dumps we need to decode
+        return orjson.dumps(self, default=pydantic_encoder).decode()
+
+
+@dataclass(config=MyConfig)
+class Error(BaseObject):
     code: int
     message: str
-    errors: Errors = field()
+    sty: int = dataclasses.field(default=None, metadata={"deprecated": True})
 
 
-@dataclass
-class ObjectError(BaseError):
-    pass
+@dataclass(config=MyConfig)
+class BaseJsonObject(BaseObject):
+    code: int
+    message: str
+    errors: List[Error]
 
 
-JSON_DATA = '{"code":50035,' \
-            '"errors":{' \
-                '"access_token":{' \
-                    '"_errors":[{' \
-                        '"code":"BASE_TYPE_REQUIRED",' \
-                        '"message":"This field is required"' \
-                    '}]' \
-                '}' \
-            '},' \
-            '"message":"Invalid Form Body"}'
+json_data = '{"code":50035,' \
+            '"message":"Invalid Form Body",' \
+            '"errors":[{"code":"123","message":"Command exceeds maximum size (4000)"},' \
+            '{"code":"321","message":"Command exceeds maximum size (4001)", "sty": 4001}]}'
 
-x = json.loads(JSON_DATA, object_hook=lambda d: ObjectError(**d))
+dct: dict = orjson.loads(json_data)
 
-print(x)
+result = BaseJsonObject(**dct)
+#print(result)
