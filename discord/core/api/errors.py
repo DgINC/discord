@@ -1,6 +1,5 @@
 import dataclasses
-from abc import ABC
-from typing import List, Any, Tuple, Type
+from typing import List, Any, Tuple
 
 import orjson
 from pydantic.dataclasses import dataclass
@@ -14,16 +13,10 @@ class MyConfig:
 
 class MetaObject(type):
     def __new__(mcs, name: str, bases: Tuple[type, ...], dictionary: dict[str, Any], **kwargs: Any):
-        #print(mcs.__dict__)
-        #print(mcs)
         return super(MetaObject, mcs).__new__(mcs, name, bases, dictionary)
 
     def __init__(cls, name: str, bases: Tuple[type, ...], dictionary: dict[str, Any], **kwargs: Any):
         super(MetaObject, cls).__init__(name, bases, dictionary)
-        #print(bases)
-        for key, val in dictionary.items():
-            print(val)
-        #print(dictionary)
 
 
 @dataclass(config=MyConfig)
