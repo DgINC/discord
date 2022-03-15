@@ -49,9 +49,9 @@ class PremiumTier(IntEnum):
 
 
 class SystemChannelFlags(IntFlag):
-    SUPPRESS_JOIN_NOTIFICATIONS = 1 << 0,
-    SUPPRESS_PREMIUM_SUBSCRIPTIONS = 1 << 1,
-    SUPPRESS_GUILD_REMINDER_NOTIFICATIONS = 1 << 2,
+    SUPPRESS_JOIN_NOTIFICATIONS = 1 << 0
+    SUPPRESS_PREMIUM_SUBSCRIPTIONS = 1 << 1
+    SUPPRESS_GUILD_REMINDER_NOTIFICATIONS = 1 << 2
     SUPPRESS_JOIN_NOTIFICATION_REPLIES = 1 << 3
 
 
@@ -113,6 +113,7 @@ class Guild(BaseObject):
     banner: str
     owner: bool
     owner_id: UserID
+    permissions: str
     application_id: ApplicationID
     afk_channel_id: ChannelID
     afk_timeout: int
@@ -138,6 +139,8 @@ class Guild(BaseObject):
     member_count: int
     channels: list[Channel]
     threads: list[Channel]
+    nsfw: bool
+    # presences: list[] #TODO: Write presence impl
     voice_states: list[VoiceState] = field(default_factory=list)
     members: list[GuildMember] = field(default_factory=list)
     widget_channel_id: ChannelID = field(default=None)

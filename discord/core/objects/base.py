@@ -1,6 +1,7 @@
 from dataclasses import dataclass, fields
 from warnings import warn
 from typing import Any
+from .types.snowflake import SnowFlake
 
 from pydantic import BaseModel
 
