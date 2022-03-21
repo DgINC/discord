@@ -3,8 +3,12 @@ from setuptools import setup, find_packages
 version = '0.0.1'
 
 install_requires = [
-    'setuptools>=39.0.1',
-    'sqlalchemy[asyncio]',
+    'setuptools~=57.0.0',
+    'aiohttp~=3.8.1',
+    'aiodns~=3.0.0',
+    'pydantic~=1.9.0',
+    'orjson~=3.6.7',
+    'oauthlib~=3.2.0'
 ]
 
 setup(

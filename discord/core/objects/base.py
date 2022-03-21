@@ -23,3 +23,14 @@ class BaseObject(BaseModel):
         error_msg_templates = {
             'value_error.any_str.max_length': 'max_length:{limit_value}',
         }
+
+
+@dataclass
+class RequestMixin:
+    @classmethod
+    def from_request(cls, request):
+        values = request.get("input")
+        return cls(**values)
+
+    def to_json(self):
+        return json.dumps(asdict(self))

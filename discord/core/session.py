@@ -1,18 +1,35 @@
-from collections import namedtuple
 from typing import Optional, ClassVar
+import oauthlib
 
-import uvloop as uvloop
-from aiohttp import ClientSession, BasicAuth
-import asyncio
 import orjson
+from aiohttp import ClientSession, BasicAuth, ClientRequest
 from aiohttp.typedefs import JSONEncoder, StrOrURL
-from pydantic import AnyUrl
-from pydantic.json import pydantic_encoder
 
-from discord.core.api import API_ENDPOINT
+from discord.core import API_ENDPOINT
 
 
-class Oauth2(namedtuple("Oauth2", ["client_id", "password", "encoding"])):
+class Oauth2(BasicAuth):
+    def __init__(
+            self,
+            client_id=None,
+            client=None,
+            auto_refresh_url=None,
+            auto_refresh_kwargs=None,
+            scope=None,
+            redirect_uri=None,
+            token=None,
+            state=None,
+            token_updater=None,
+            **kwargs
+    ):
+        pass
+
+    def encode(self) -> str:
+        """Encode credentials."""
+        return "Barer %s"
+
+
+class OAuth(ClientRequest):
     pass
 
 
@@ -25,12 +42,8 @@ class DiscordSession:
     def __init__(self):
         self._session = ClientSession(base_url=self._base_url, auth=self._auth, json_serialize=self._json_serialize)
 
+    async def start_ws(self):
+        await self._session.ws_connect()
 
-async def start():
-    st = DiscordSession()
-
-if __name__ == "__main__":
-    async def main():
-        await start()
-
-    main()
+    async def send_req(self, ):
+        await self._session.put()
