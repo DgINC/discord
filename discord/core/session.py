@@ -68,8 +68,11 @@ class DiscordSession(aobject):
             if ws:
                 await ws.close()
 
-    async def send_req(self, ):
-        await self._client.put()
+    async def send_req(self, method: str):
+        match method:
+            case "get":
+            case "put":
+                await self._client.put()
 
     async def close(self) -> None:
         return await self._client.close()
