@@ -1,3 +1,5 @@
+import asyncio
+from contextlib import asynccontextmanager
 from typing import Optional, ClassVar
 import oauthlib
 
@@ -8,18 +10,6 @@ from aiohttp.typedefs import JSONEncoder, StrOrURL
 
 from discord.core import API_ENDPOINT, API_ENDPOINT_GATEWAY
 
-class aobject(object):
-    """Inheriting this class allows you to define an async __init__.
-
-    So you can create objects by doing something like `await MyClass(params)`
-    """
-    async def __new__(cls, *a, **kw):
-        instance = super().__new__(cls)
-        await instance.__init__(*a, **kw)
-        return instance
-
-    async def __init__(self):
-        pass
 
 class Oauth2(BasicAuth):
     def __init__(
@@ -46,7 +36,7 @@ class OAuth(ClientRequest):
     pass
 
 
-class DiscordSession(aobject):
+class DiscordSession:
     _base_url: Optional[StrOrURL] = API_ENDPOINT
     _auth: Optional[BasicAuth] = None
     _json_serialize: ClassVar[JSONEncoder] = lambda x: orjson.dumps(x).decode()
@@ -54,11 +44,18 @@ class DiscordSession(aobject):
     _ws_client: ClassVar[ClientSession] = None
     _server: ClassVar[Application] = None
         
-    async def __init__(self):
+    def __init__(self):
+        pass
+
+    async def __aenter__(self):
         self._server = web.Application()
         self._client = ClientSession(base_url=self._base_url, auth=self._auth, json_serialize=self._json_serialize)
         self._ws_client = ClientSession(base_url=self._base_url, auth=self._auth, json_serialize=self._json_serialize)
-        super(self).__init__()
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        await self._client.close()
+        await self._server.cleanup()
+        pass
 
     async def start_ws(self):
         await self._ws_client.ws_connect(url=API_ENDPOINT_GATEWAY)
@@ -68,11 +65,30 @@ class DiscordSession(aobject):
             if ws:
                 await ws.close()
 
-    async def send_req(self, method: str):
+    async def send_req(self, method: str, req: str, data: Optional[bytes]):
         match method:
             case "get":
+                async with self._client.get(url=req) as resp:
+                    print(resp.status)
+                    print(await resp.text())
             case "put":
-                await self._client.put()
+                async with self._client.put(url=req, data=data) as resp:
+                    print(resp.status)
+                    print(await resp.text())
 
     async def close(self) -> None:
         return await self._client.close()
+
+
+@asynccontextmanager
+async def manager():
+    client = DiscordSession()
+    try:
+        yield client
+    finally:
+        await client.close()
+
+@manager
+async def main():
+    pass
+
