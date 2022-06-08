@@ -37,7 +37,7 @@ class OAuth(ClientRequest):
 
 
 class DiscordSession:
-    _base_url: Optional[StrOrURL] = API_ENDPOINT
+    _base_url: ClassVar[StrOrURL] = API_ENDPOINT
     _auth: Optional[BasicAuth] = None
     _json_serialize: ClassVar[JSONEncoder] = lambda x: orjson.dumps(x).decode()
     _client: ClassVar[ClientSession] = None
