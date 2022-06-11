@@ -1,7 +1,4 @@
-import asyncio
-from contextlib import asynccontextmanager
 from typing import Optional, ClassVar
-import oauthlib
 
 import orjson
 from aiohttp import ClientSession, BasicAuth, ClientRequest, web
@@ -78,17 +75,3 @@ class DiscordSession:
 
     async def close(self) -> None:
         return await self._client.close()
-
-
-@asynccontextmanager
-async def manager():
-    client = DiscordSession()
-    try:
-        yield client
-    finally:
-        await client.close()
-
-@manager
-async def main():
-    pass
-

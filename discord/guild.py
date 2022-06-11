@@ -1,11 +1,22 @@
+import asyncio
+from typing import ClassVar
+
+from discord.core.session import DiscordSession
+
+
 class Guild:
+    _client: ClassVar[DiscordSession]
     guild_id: int
 
     def __init__(self, guild_id: int):
         self.guild_id = guild_id
 
+    def __aiter__(self):
+        return self
+
     async def __aenter__(self):
-        pass
+        self._client = DiscordSession()
+        return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         pass
@@ -14,7 +25,7 @@ class Guild:
         pass
 
     async def get(self):   # GET
-        pass
+        await self._client.send_req("GET", "//", b'3532erser')
 
     async def get_preview(self):   # GET
         pass
@@ -27,3 +38,13 @@ class Guild:
 
     async def get_channels(self):  # GET
         pass
+
+
+async def main():
+    try:
+        async with Guild(12356) as G:
+            await G.get()
+    finally:
+        pass
+
+asyncio.run(main())
