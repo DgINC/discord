@@ -3,7 +3,7 @@ from enum import IntEnum
 from typing import Annotated, Optional, Union
 
 from .emojis import Emoji
-from .guild import GuildMember
+from .guildobject import GuildMember
 from .types.snowflake import SnowFlake
 from .base import BaseObject
 from .user import User

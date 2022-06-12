@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from .channel import ChannelID
 from .types.snowflake import SnowFlake
 from .base import BaseObject
-from .guild import GuildMember, GuildID
+from .guildobject import GuildMember, GuildID
 from .user import UserID
 
 

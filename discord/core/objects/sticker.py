@@ -3,7 +3,7 @@ from enum import IntEnum
 from typing import TypeVar
 
 from .base import BaseObject
-from .guild import GuildID
+from .guildobject import GuildID
 from .types.snowflake import SnowFlake
 from .user import User
 

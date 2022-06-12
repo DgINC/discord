@@ -8,7 +8,7 @@ from .role import Role
 from .sticker import Sticker, StickerItem
 from .types.snowflake import SnowFlake
 from .base import BaseObject
-from .guild import GuildID, GuildMember
+from .guildobject import GuildID, GuildMember
 from .user import UserID, User
 from .application import ApplicationID, Application
 from .voice import VoiceRegion

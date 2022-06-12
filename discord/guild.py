@@ -1,6 +1,7 @@
 import asyncio
 from typing import ClassVar
 
+from discord.core.objects.guildobject import GuildObject
 from discord.core.session import DiscordSession
 
 
@@ -21,7 +22,7 @@ class Guild:
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         pass
 
-    async def create(self, data: tuple):  # POST
+    async def create(self, data: tuple) -> GuildObject:  # POST
         pass
 
     async def get(self):   # GET

@@ -102,7 +102,7 @@ class GuildMember(BaseObject):
 
 
 @dataclass
-class Guild(BaseObject):
+class GuildObject(BaseObject):
     id: GuildID
     name: str
     icon: str

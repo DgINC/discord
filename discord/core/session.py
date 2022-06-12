@@ -62,7 +62,7 @@ class DiscordSession:
             if ws:
                 await ws.close()
 
-    async def send_req(self, method: str, req: str, data: Optional[bytes]):
+    async def send_req(self, method: str, req: str, data: bytes):
         match method:
             case "get":
                 async with self._client.get(url=req) as resp:
@@ -72,6 +72,18 @@ class DiscordSession:
                 async with self._client.put(url=req, data=data) as resp:
                     print(resp.status)
                     print(await resp.text())
+            case "delete":
+                async with self._client.delete(url=req) as resp:
+                    pass
+            case "head":
+                async with self._client.head(url=req) as  resp:
+                    pass
+            case "options":
+                async with self._client.options(url=req) as resp:
+                    pass
+            case "patch":
+                async with self._client.patch(url=req, data=data) as resp:
+                    pass
 
     async def close(self) -> None:
         return await self._client.close()
