@@ -62,9 +62,9 @@ class DiscordSession:
             if ws:
                 await ws.close()
 
-    async def send_req(self, method: str, req: str, data: bytes):
+    async def send_req(self, method: METH_ALL, req: str, data: bytes):
         match method:
-            case "get":
+            case METH_GET:
                 async with self._client.get(url=req) as resp:
                     print(resp.status)
                     print(await resp.text())
