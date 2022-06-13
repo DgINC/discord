@@ -26,7 +26,7 @@ class Guild:
         pass
 
     async def get(self, with_counts: bool = False) -> GuildObject:   # GET
-        await self._client.send_req(MATH_GET, f"/guilds/{self.guild.id}")
+        await self._client.send_req(MATH_GET, f"/api/v9/guilds/{self.guild.id}")
 
     async def get_preview(self):   # GET
         pass
