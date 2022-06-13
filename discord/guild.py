@@ -25,8 +25,8 @@ class Guild:
     async def create(self, data: tuple) -> GuildObject:  # POST
         pass
 
-    async def get(self):   # GET
-        await self._client.send_req("GET", "//", b'3532erser')
+    async def get(self, with_counts: bool) -> GuildObject:   # GET
+        await self._client.send_req(MATH_GET, f"/guilds/{self.guild.id}", b'3532erser')
 
     async def get_preview(self):   # GET
         pass
