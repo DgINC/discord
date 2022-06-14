@@ -1,5 +1,4 @@
-from types import Final
-from typing import Enum
+from typing import Enum, Final
 
 class METH(str, Enum):
     PUT: Final[str] = "PUT"
