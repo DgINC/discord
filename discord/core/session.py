@@ -86,5 +86,5 @@ class DiscordSession:
                 async with self._client.patch(url=req, data=data) as resp:
                     pass
 
-    async def close(self) -> None:
+    async def close(self) -> NoReturn:
         await self._client.close()
