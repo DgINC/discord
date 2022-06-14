@@ -1,4 +1,4 @@
-from typing import Optional, ClassVar
+from typing import Optional, ClassVar, NoReturn, Union
 
 import orjson
 from aiohttp import ClientSession, BasicAuth, ClientRequest, web
@@ -6,45 +6,23 @@ from aiohttp.abc import Application
 from aiohttp.typedefs import JSONEncoder, StrOrURL
 from contextlib import AsyncContextDecorator
 
+from pydantic import json
+
 from discord.core import API_ENDPOINT, API_ENDPOINT_GATEWAY
-from discord.utils.base import METH
-
-
-class Oauth2(BasicAuth):
-    def __init__(
-            self,
-            client_id=None,
-            client=None,
-            auto_refresh_url=None,
-            auto_refresh_kwargs=None,
-            scope=None,
-            redirect_uri=None,
-            token=None,
-            state=None,
-            token_updater=None,
-            **kwargs
-    ):
-        pass
-
-    def encode(self) -> str:
-        """Encode credentials."""
-        return "Barer %s"
-
-
-class OAuth(ClientRequest):
-    pass
+from discord.core.oauth2 import OAuth2
+from discord.core.utils.base import METH
 
 
 class DiscordSession(AsyncContextDecorator):
     _base_url: ClassVar[StrOrURL] = API_ENDPOINT
-    _auth: Optional[BasicAuth] = None
+    _auth: Optional[OAuth2] = None
     _json_serialize: ClassVar[JSONEncoder] = lambda x: orjson.dumps(x).decode()
     _client: ClassVar[ClientSession] = None
     _ws_client: ClassVar[ClientSession] = None
     _server: ClassVar[Application] = None
         
-    def __init__(self):
-        pass
+    def __init__(self, auth: Optional[BasicAuth] = None):
+        self._auth = auth
 
     async def __aenter__(self):
         self._server = web.Application()
@@ -68,24 +46,32 @@ class DiscordSession(AsyncContextDecorator):
         match method:
             case METH.GET:
                 async with self._client.get(url=req) as resp:
-                    res = await resp.json()
+                    res: json = await resp.json()
+                    return res
+            case METH.POST:
+                async with self._client.post(url=req) as resp:
+                    res: json = await resp.json()
                     return res
             case METH.PUT:
                 async with self._client.put(url=req, data=data) as resp:
-                    print(resp.status)
-                    print(await resp.text())
+                    res: json = await resp.json()
+                    return res
             case METH.DELETE:
                 async with self._client.delete(url=req) as resp:
-                    pass
+                    res: json = await resp.json()
+                    return res
             case METH.HEAD:
-                async with self._client.head(url=req) as  resp:
-                    pass
+                async with self._client.head(url=req) as resp:
+                    res: json = await resp.json()
+                    return res
             case METH.OPTIONS:
                 async with self._client.options(url=req) as resp:
-                    pass
+                    res: json = await resp.json()
+                    return res
             case METH.PATCH:
                 async with self._client.patch(url=req, data=data) as resp:
-                    passdd
+                    res: json = await resp.json()
+                    return res
 
     async def close(self) -> NoReturn:
         await self._client.close()

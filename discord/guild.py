@@ -1,9 +1,10 @@
 import asyncio
 from typing import ClassVar
 
+from discord.core.oauth2 import OAuth2
 from discord.core.objects.guildobject import GuildObject
 from discord.core.session import DiscordSession
-from discord.utils.base import METH
+from discord.core.utils.base import METH
 
 
 class Guild:
@@ -17,7 +18,7 @@ class Guild:
         return self
 
     async def __aenter__(self):
-        self._client = DiscordSession()
+        self._client = DiscordSession(OAuth2)
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
