@@ -63,12 +63,12 @@ class DiscordSession:
             if ws:
                 await ws.close()
 
-    async def send_req(self, method: METH, req: str, data: bytes):
+    async def send_req(self, method: METH, req: str, data: bytes) -> json:
         match method:
             case METH.GET:
                 async with self._client.get(url=req) as resp:
-                    print(resp.status)
-                    print(await resp.text())
+                    res = await resp.json()
+                    return res
             case METH.PUT:
                 async with self._client.put(url=req, data=data) as resp:
                     print(resp.status)
