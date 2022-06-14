@@ -6,6 +6,7 @@ from aiohttp.abc import Application
 from aiohttp.typedefs import JSONEncoder, StrOrURL
 
 from discord.core import API_ENDPOINT, API_ENDPOINT_GATEWAY
+from discord.utils.base import METH
 
 
 class Oauth2(BasicAuth):
@@ -62,26 +63,26 @@ class DiscordSession:
             if ws:
                 await ws.close()
 
-    async def send_req(self, method: METH_ALL, req: str, data: bytes):
+    async def send_req(self, method: METH, req: str, data: bytes):
         match method:
-            case METH_GET:
+            case METH.GET:
                 async with self._client.get(url=req) as resp:
                     print(resp.status)
                     print(await resp.text())
-            case "put":
+            case METH.PUT:
                 async with self._client.put(url=req, data=data) as resp:
                     print(resp.status)
                     print(await resp.text())
-            case "delete":
+            case METH.DELETE:
                 async with self._client.delete(url=req) as resp:
                     pass
-            case "head":
+            case METH.HEAD:
                 async with self._client.head(url=req) as  resp:
                     pass
-            case "options":
+            case METH.OPTIONS:
                 async with self._client.options(url=req) as resp:
                     pass
-            case "patch":
+            case METH.PATCH:
                 async with self._client.patch(url=req, data=data) as resp:
                     pass
 
