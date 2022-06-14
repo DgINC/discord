@@ -3,6 +3,7 @@ from typing import ClassVar
 
 from discord.core.objects.guildobject import GuildObject
 from discord.core.session import DiscordSession
+from discord.utils.base import METH
 
 
 class Guild:
@@ -26,7 +27,7 @@ class Guild:
         pass
 
     async def get(self, with_counts: bool = False) -> GuildObject:   # GET
-        async with self._client.send_req(MATH_GET, f"/api/v9/guilds/{self.guild_id}") as resp:
+        async with self._client.send_req(METH.GET, f"/api/v9/guilds/{self.guild_id}") as resp:
             pass
 
     async def get_preview(self):   # GET
