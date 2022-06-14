@@ -15,7 +15,7 @@ from discord.core.utils.base import METH
 
 class DiscordSession(AsyncContextDecorator):
     _base_url: ClassVar[StrOrURL] = API_ENDPOINT
-    _auth: Optional[OAuth2] = None
+    _auth: Optional[BasicAuth] = None
     _json_serialize: ClassVar[JSONEncoder] = lambda x: orjson.dumps(x).decode()
     _client: ClassVar[ClientSession] = None
     _ws_client: ClassVar[ClientSession] = None

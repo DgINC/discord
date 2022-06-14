@@ -18,7 +18,7 @@ class Guild:
         return self
 
     async def __aenter__(self):
-        self._client = DiscordSession(OAuth2)
+        self._client = DiscordSession(OAuth2())
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
