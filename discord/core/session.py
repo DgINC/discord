@@ -85,7 +85,7 @@ class DiscordSession(AsyncContextDecorator):
                     pass
             case METH.PATCH:
                 async with self._client.patch(url=req, data=data) as resp:
-                    pass
+                    passdd
 
     async def close(self) -> NoReturn:
         await self._client.close()
