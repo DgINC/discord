@@ -1,4 +1,4 @@
-
+from types import Enum
 
 class METH(str, Enum):
     PUT: Final[str] = "PUT
