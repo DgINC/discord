@@ -42,13 +42,3 @@ class Guild:
 
     async def get_channels(self):  # GET
         pass
-
-
-async def main():
-    try:
-        async with Guild(12356) as G:
-            await G.get()
-    finally:
-        pass
-
-asyncio.run(main())
