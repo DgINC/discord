@@ -4,6 +4,7 @@ import orjson
 from aiohttp import ClientSession, BasicAuth, ClientRequest, web
 from aiohttp.abc import Application
 from aiohttp.typedefs import JSONEncoder, StrOrURL
+from contextlib import AsyncContextDecorator
 
 from discord.core import API_ENDPOINT, API_ENDPOINT_GATEWAY
 from discord.utils.base import METH
@@ -34,7 +35,7 @@ class OAuth(ClientRequest):
     pass
 
 
-class DiscordSession:
+class DiscordSession(AsyncContextDecorator):
     _base_url: ClassVar[StrOrURL] = API_ENDPOINT
     _auth: Optional[BasicAuth] = None
     _json_serialize: ClassVar[JSONEncoder] = lambda x: orjson.dumps(x).decode()
