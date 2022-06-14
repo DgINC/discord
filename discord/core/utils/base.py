@@ -6,3 +6,4 @@ class METH(str, Enum):
     PATCH: Final[str] = "PATCH"
     DELETE: Final[str] = "DELETE"
     OPTIONS: Final[str] = "OPTIONS"
+    HEAD: Final[str] = "HEAD"
