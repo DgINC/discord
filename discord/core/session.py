@@ -87,4 +87,4 @@ class DiscordSession:
                     pass
 
     async def close(self) -> None:
-        return await self._client.close()
+        await self._client.close()
