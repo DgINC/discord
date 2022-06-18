@@ -3,7 +3,7 @@ from enum import IntEnum
 from typing import Annotated, Optional, Union
 
 from .emojis import Emoji
-from .guildobject import GuildMember
+from .guildobjects import GuildMemberObject
 from .types.snowflake import SnowFlake
 from .base import BaseObject
 from .user import User
@@ -23,7 +23,7 @@ class MessageInteraction(BaseObject):
     type: InteractionType
     name: str
     user: User
-    member: GuildMember
+    member: GuildMemberObject
 
 
 class ComponentType(IntEnum):

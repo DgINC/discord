@@ -7,6 +7,7 @@ from .base import BaseObject
 from .channel import ChannelID, Channel
 from .emojis import Emoji
 from .role import Role, RoleID
+from .stickerobjects import StickerObject
 from .types.snowflake import SnowFlake
 from .user import User
 from .user import UserID
@@ -87,7 +88,22 @@ GuildFutures = [
 
 
 @dataclass
-class GuildMember(BaseObject):
+class GuildPreviewObject(BaseObject):
+    id: GuildID
+    name: str
+    icon: str
+    splash: str
+    discovery_splash: str
+    emojis: list[Emoji]
+    features: list[GuildFutures]
+    approximate_member_count: int
+    approximate_presence_count: int
+    description: str
+    stickers: list[StickerObject]
+
+
+@dataclass
+class GuildMemberObject(BaseObject):
     user: User
     nick: str
     avatar: str
@@ -142,7 +158,7 @@ class GuildObject(BaseObject):
     nsfw: bool
     # presences: list[] #TODO: Write presence impl
     voice_states: list[VoiceState] = field(default_factory=list)
-    members: list[GuildMember] = field(default_factory=list)
+    members: list[GuildMemberObject] = field(default_factory=list)
     widget_channel_id: ChannelID = field(default=None)
     discovery_splash: str = field(default=None)
     region: str = field(default=None)

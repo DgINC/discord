@@ -5,10 +5,10 @@ from typing import TypeVar, Union, Optional, Annotated, NewType, final
 from .emojis import Emoji
 from .interactions import MessageInteraction, MessageComponent
 from .role import Role
-from .sticker import Sticker, StickerItem
+from .stickerobjects import StickerObject, StickerItem
 from .types.snowflake import SnowFlake
 from .base import BaseObject
-from .guildobject import GuildID, GuildMember
+from .guildobjects import GuildID, GuildMemberObject
 from .user import UserID, User
 from .application import ApplicationID, Application
 from .voice import VoiceRegion
@@ -259,7 +259,7 @@ class Message(BaseObject):
     channel_id: ChannelID
     guild_id: GuildID
     author: User
-    member: GuildMember
+    member: GuildMemberObject
     content: str
     timestamp: int
     edited_timestamp: Optional[Union[int, None]]
@@ -285,4 +285,4 @@ class Message(BaseObject):
     thread: Channel
     components: list[MessageComponent]
     sticker_items: list[StickerItem]
-    stickers: list[Sticker]
+    stickers: list[StickerObject]

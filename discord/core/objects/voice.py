@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from .channel import ChannelID
 from .types.snowflake import SnowFlake
 from .base import BaseObject
-from .guildobject import GuildMember, GuildID
+from .guildobjects import GuildMemberObject, GuildID
 from .user import UserID
 
 
@@ -12,7 +12,7 @@ class VoiceState(BaseObject):
     guild_id: GuildID
     channel_id: ChannelID
     user_id: UserID
-    member: GuildMember
+    member: GuildMemberObject
     session_id: str
     deaf: bool
     mute: bool

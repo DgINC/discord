@@ -1,6 +1,11 @@
 from abc import ABC, abstractmethod
 
+import aiohttp
 from aiohttp import ClientSession, ClientResponse, BasicAuth, ClientRequest
+
+from core import LOGIN_OAUTH_ACCESS_TOKEN
+from core.api.configs import SessionConfigInterface
+from core.objects.oauth2.base import DiscordScope
 
 
 class AbstractAuth(ABC):
@@ -54,21 +59,35 @@ class OAuth2(BasicAuth):
             self,
             client_id=None,
             client=None,
-            auto_refresh_url=None,
-            auto_refresh_kwargs=None,
             scope=None,
             redirect_uri=None,
             token=None,
             state=None,
-            token_updater=None,
             **kwargs
     ):
         pass
 
     def encode(self) -> str:
         """Encode credentials."""
-        return f"Bearer %s"
+        return (f"Bearer %s" % TOKEN)
 
 
-class OAuth(ClientRequest):
-    pass
+class OAuth(BasicAuth):
+    def __init__(self, config: SessionConfigInterface, scope: DiscordScope):
+        pass
+
+    async def __aenter__(self, config: SessionConfigInterface):
+        pass
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        pass
+
+    async def main(self):
+        async with aiohttp.ClientSession() as session:
+            async with session.post(LOGIN_OAUTH_ACCESS_TOKEN) as resp:
+                print(resp.status)
+                print(await resp.text())
+
+    def encode(self) -> str:
+        """Encode credentials."""
+        return "Bearer %s"

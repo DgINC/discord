@@ -1,7 +1,7 @@
 import abc
 
 
-class ConfigInterface(metaclass=abc.ABCMeta):
+class SessionConfigInterface(metaclass=abc.ABCMeta):
     @classmethod
     def __subclasshook__(cls, subclass):
         return (hasattr(subclass, 'get_data') and
@@ -9,15 +9,15 @@ class ConfigInterface(metaclass=abc.ABCMeta):
                 NotImplemented)
 
     @property
-    def version(self) -> str:
-        raise NotImplementedError
-
-    @property
     def client_id(self) -> str:
         raise NotImplementedError
 
     @property
     def client_secret(self) -> str:
+        raise NotImplementedError
+
+    @property
+    def redirect_uri(self) -> str:
         raise NotImplementedError
 
     # @abc.abstractmethod

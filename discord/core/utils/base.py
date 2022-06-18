@@ -1,5 +1,4 @@
-from enum import Enum
-from typing import Final
+from discord.core.objects.types.base import HttpMethod
 
 
 class MaxLen:
@@ -7,11 +6,10 @@ class MaxLen:
         self.value = value
 
 
-class METH(str, Enum):
-    POST: Final[str] = "POST"
-    PUT: Final[str] = "PUT"
-    GET: Final[str] = "GET"
-    PATCH: Final[str] = "PATCH"
-    DELETE: Final[str] = "DELETE"
-    OPTIONS: Final[str] = "OPTIONS"
-    HEAD: Final[str] = "HEAD"
+POST: HttpMethod = "POST"
+PUT: HttpMethod = "PUT"
+GET: HttpMethod = "GET"
+PATCH: HttpMethod = "PATCH"
+DELETE: HttpMethod = "DELETE"
+OPTIONS: HttpMethod = "OPTIONS"
+HEAD: HttpMethod = "HEAD"

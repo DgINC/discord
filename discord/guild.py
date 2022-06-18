@@ -2,9 +2,9 @@ import asyncio
 from typing import ClassVar
 
 from discord.core.oauth2 import OAuth2
-from discord.core.objects.guildobject import GuildObject
+from discord.core.objects.guildobjects import GuildObject, GuildPreviewObject
 from discord.core.session import DiscordSession
-from discord.core.utils.base import METH
+from discord.core.utils.base import GET
 
 
 class Guild:
@@ -28,10 +28,10 @@ class Guild:
         pass
 
     async def get(self, with_counts: bool = False) -> GuildObject:   # GET
-        async with self._client.send_req(METH.GET, f"/api/v9/guilds/{self.guild_id}") as resp:
+        async with self._client.send_req(GET, f"/api/v9/guilds/{self.guild_id}") as resp:
             pass
 
-    async def get_preview(self):   # GET
+    async def get_preview(self) -> GuildPreviewObject:   # GET
         pass
 
     async def modify(self):    # POST

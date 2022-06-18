@@ -3,7 +3,7 @@ from enum import IntEnum
 from typing import TypeVar
 
 from .base import BaseObject
-from .guildobject import GuildID
+from .guildobjects import GuildID
 from .types.snowflake import SnowFlake
 from .user import User
 
@@ -29,7 +29,7 @@ class StickerItem(BaseObject):
 
 
 @dataclass
-class Sticker(BaseObject):
+class StickerObject(BaseObject):
     id: StickerID
     pack_id: StickerID
     name: str
