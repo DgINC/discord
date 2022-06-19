@@ -32,10 +32,12 @@ class DiscordSession(AsyncContextDecorator):
         self._server = web.Application()
         self._client = ClientSession(base_url=self._base_url, auth=self._auth, json_serialize=self._json_serialize)
         self._ws_client = ClientSession(base_url=self._base_url, auth=self._auth, json_serialize=self._json_serialize)
+        return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         await self._client.close()
         await self._server.cleanup()
+        return False
 
     async def start_ws(self):
         await self._ws_client.ws_connect(url=API_ENDPOINT_GATEWAY)

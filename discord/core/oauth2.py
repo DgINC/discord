@@ -1,92 +1,47 @@
-from abc import ABC, abstractmethod
+from contextlib import AsyncContextDecorator
+from random import randrange
+from typing import ClassVar
 
-import aiohttp
-from aiohttp import ClientSession, ClientResponse, BasicAuth, ClientRequest
+from aiohttp import ClientSession, BasicAuth
+from oauthlib.oauth2 import WebApplicationClient
 
-from core import LOGIN_OAUTH_ACCESS_TOKEN
+from core import OAUTH_AUTHORIZE
 from core.api.configs import SessionConfigInterface
 from core.objects.oauth2.base import DiscordScope
+from core.utils.base import POST
 
 
-class AbstractAuth(ABC):
-    """Abstract class to make authenticated requests."""
+class OAuth2(BasicAuth, AsyncContextDecorator):
+    _client: ClassVar[ClientSession] = None
+    _oauth: ClassVar[WebApplicationClient] = None
+    _config: ClassVar[SessionConfigInterface] = None
 
-    def __init__(self, websession: ClientSession, host: str):
-        """Initialize the auth."""
-        self.websession = websession
-        self.host = host
-
-    @abstractmethod
-    async def async_get_access_token(self) -> str:
-        """Return a valid access token."""
-
-    async def request(self, method, url, **kwargs) -> ClientResponse:
-        """Make a request."""
-        headers = kwargs.get("headers")
-
-        if headers is None:
-            headers = {}
-        else:
-            headers = dict(headers)
-
-        access_token = await self.async_get_access_token()
-        headers["authorization"] = f"Bearer {access_token}"
-
-        return await self.websession.request(
-            method, f"{self.host}/{url}", **kwargs, headers=headers,
-        )
-
-
-class Auth(AbstractAuth):
-    def __init__(self, websession: ClientSession, host: str, token_manager):
-        """Initialize the auth."""
-        super().__init__(websession, host)
-        self.token_manager = token_manager
-
-    async def async_get_access_token(self) -> str:
-        """Return a valid access token."""
-        if self.token_manager.is_token_valid():
-            return self.token_manager.access_token
-
-        await self.token_manager.fetch_access_token()
-        await self.token_manager.save_access_token()
-
-        return self.token_manager.access_token
-
-
-class OAuth2(BasicAuth):
-    def __init__(
-            self,
-            client_id=None,
-            client=None,
-            scope=None,
-            redirect_uri=None,
-            token=None,
-            state=None,
-            **kwargs
-    ):
-        pass
-
-    def encode(self) -> str:
-        """Encode credentials."""
-        return (f"Bearer %s" % TOKEN)
-
-
-class OAuth(BasicAuth):
-    def __init__(self, config: SessionConfigInterface, scope: DiscordScope):
-        pass
+    def __init__(self, config: SessionConfigInterface):
+        self._client = ClientSession()
+        self._oauth = WebApplicationClient(config.client_id)
+        self._config = config
 
     async def __aenter__(self, config: SessionConfigInterface):
-        pass
+        return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
-        pass
+        return False
 
-    async def main(self):
-        async with aiohttp.ClientSession() as session:
-            async with session.post(LOGIN_OAUTH_ACCESS_TOKEN) as resp:
-                print(resp.status)
-                print(await resp.text())
+    async def authorization_code_grant(self, scopes: list[DiscordScope], **kwargs):
+        code_verifer: str = self._oauth.create_code_verifier(randrange(43, 128))
+        req: str = self._oauth.prepare_request_uri(OAUTH_AUTHORIZE,
+                                              redirect_uri=self._config.redirect_uri,
+                                              scope=scopes,
+                                              code_challenge=code_verifer,
+                                              code_challenge_method='S256',
+                                              state='ffff'
+                                              )
+        if 'bot' in scopes:
+            pass
+        self._oauth
+        async with self._client.request(method=POST, url=req) as resp:
+            print(resp.status)
+            print(await resp.text())
 
     def encode(self) -> str:
         """Encode credentials."""
