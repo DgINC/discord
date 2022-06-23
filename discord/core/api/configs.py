@@ -2,14 +2,26 @@ import abc
 
 
 class SessionConfigInterface(metaclass=abc.ABCMeta):
-    @classmethod
+    """@classmethod
     def __subclasshook__(cls, subclass):
         return (hasattr(subclass, 'get_data') and
                 callable(subclass.load_data_source) or
-                NotImplemented)
+                NotImplemented)"""
 
     @property
     def client_id(self) -> str:
+        raise NotImplementedError
+
+    @client_id.setter
+    def client_id(self, value) -> str:
+        raise NotImplementedError
+
+    @client_id.getter
+    def client_id(self) -> str:
+        raise NotImplementedError
+
+    @client_id.deleter
+    def client_id(self):
         raise NotImplementedError
 
     @property
@@ -19,7 +31,3 @@ class SessionConfigInterface(metaclass=abc.ABCMeta):
     @property
     def redirect_uri(self) -> str:
         raise NotImplementedError
-
-    # @abc.abstractmethod
-    # def get_data(self) -> dict:
-    #    raise NotImplementedError

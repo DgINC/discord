@@ -6,12 +6,12 @@ from discord.guild import Guild
 events = []
 
 
-class GuildTestCase(IsolatedAsyncioTestCase):
+class TestGuildCase(IsolatedAsyncioTestCase):
     def setUp(self):
         events.append("setUp")
 
     async def asyncSetUp(self):
-        self._async_connection = await Guild(guild_id=440725941212413952)
+        self._async_connection = Guild(guild_id=440725941212413952)
         events.append("asyncSetUp")
 
     async def test_response(self):

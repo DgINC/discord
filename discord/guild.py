@@ -1,6 +1,7 @@
 import asyncio
 from typing import ClassVar
 
+from core import API_ENDPOINT
 from discord.core.oauth2 import OAuth2
 from discord.core.objects.guildobjects import GuildObject, GuildPreviewObject
 from discord.core.session import DiscordSession
@@ -18,7 +19,7 @@ class Guild:
         return self
 
     async def __aenter__(self):
-        self._client = DiscordSession(OAuth2())
+        self._client = DiscordSession(API_ENDPOINT)
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
@@ -28,7 +29,7 @@ class Guild:
         pass
 
     async def get(self, with_counts: bool = False) -> GuildObject:   # GET
-        async with self._client.send_req(GET, f"/api/v9/guilds/{self.guild_id}") as resp:
+        async with self._client.send_request(GET, f"/api/v9/guilds/{self.guild_id}", auth=OAuth2(), with_counts=with_counts) as resp:
             pass
 
     async def get_preview(self) -> GuildPreviewObject:   # GET
