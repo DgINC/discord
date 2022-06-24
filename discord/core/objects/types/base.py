@@ -1,3 +1,4 @@
 from typing import Final
+from typing import TypeAlias
 
-HttpMethod = Final[str]
+HttpMethod: TypeAlias = Final[str]
