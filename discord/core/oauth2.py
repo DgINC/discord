@@ -24,6 +24,8 @@ class OAuth2(BasicAuth):
 
     async def authorization_code_grant(self, scopes: list[DiscordScope], **kwargs):
         code_verifier: str = self._oauth.create_code_verifier(randrange(43, 128))
+        if 'bot' in scopes:
+            pass
         self._oauth.prepare_request_uri(OAUTH_AUTHORIZE,
                                         redirect_uri=self._config.redirect_uri,
                                         scope=scopes,
@@ -31,8 +33,6 @@ class OAuth2(BasicAuth):
                                         code_challenge_method='S256',
                                         **kwargs
                                         )
-        if 'bot' in scopes:
-            pass
         async with self._client.request(method=POST, url=req) as resp:
             print(resp.status)
             print(await resp.text())
