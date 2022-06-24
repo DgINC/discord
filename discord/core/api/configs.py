@@ -16,7 +16,14 @@ class SessionConfigInterface(ABC):
         
     @abstractmethod
     @version.setter
-    async def version(self, value) -> NoReturn
+    async def version(self, value) -> NoReturn:
+        raise NotImplementedError
+        
+    @abstractmethod
+    @version.getter
+    async def version(self) -> int:
+        raise NotImplementedError
+    
     @abstractmethod
     @property
     async def client_id(self) -> str:
