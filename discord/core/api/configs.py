@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import NoReturn
 
 
 class SessionConfigInterface(ABC):
@@ -10,12 +11,20 @@ class SessionConfigInterface(ABC):
 
     @abstractmethod
     @property
+    async def version(self) -> int:
+        raise NotImplementedError
+        
+    @abstractmethod
+    @version.setter
+    async def version(self, value) -> NoReturn
+    @abstractmethod
+    @property
     async def client_id(self) -> str:
         raise NotImplementedError
 
     @abstractmethod
     @client_id.setter
-    async def client_id(self, value):
+    async def client_id(self, value) -> NoReturn:
         raise NotImplementedError
 
     @abstractmethod
@@ -25,7 +34,7 @@ class SessionConfigInterface(ABC):
 
     @abstractmethod
     @client_id.deleter
-    async def client_id(self):
+    async def client_id(self) -> NoReturn:
         raise NotImplementedError
 
     @abstractmethod
