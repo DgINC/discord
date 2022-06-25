@@ -1,7 +1,8 @@
 import asyncio
-from typing import ClassVar
+from typing import ClassVar, Type
 
 from core import API_ENDPOINT
+from core.api.configs import OAuthSessionConfigInterface
 from discord.core.oauth2 import OAuth2
 from discord.core.objects.guildobjects import GuildObject, GuildPreviewObject
 from discord.core.session import DiscordSession
@@ -10,16 +11,16 @@ from discord.core.utils.base import GET
 
 class Guild:
     _client: ClassVar[DiscordSession]
+    _config: ClassVar[Type[OAuthSessionConfigInterface]]
     guild_id: int
+    version: int
 
-    def __init__(self, guild_id: int):
+    def __init__(self, guild_id: int, config: Type[OAuthSessionConfigInterface]):
         self.guild_id = guild_id
-
-    def __aiter__(self):
-        return self
+        self._config = config
 
     async def __aenter__(self):
-        self._client = DiscordSession(API_ENDPOINT)
+        self._client = DiscordSession(base_url=API_ENDPOINT, config=self._config)
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
@@ -29,7 +30,9 @@ class Guild:
         pass
 
     async def get(self, with_counts: bool = False) -> GuildObject:   # GET
-        async with self._client.send_request(GET, f"/api/v9/guilds/{self.guild_id}", auth=OAuth2(), with_counts=with_counts) as resp:
+        async with self._client.send_request(GET,
+                                             f"/api/v{self.version}/guilds/{self.guild_id}",
+                                             with_counts=with_counts) as resp:
             pass
 
     async def get_preview(self) -> GuildPreviewObject:   # GET

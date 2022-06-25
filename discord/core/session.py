@@ -1,39 +1,43 @@
 import datetime
 from contextlib import AsyncContextDecorator
-from typing import Optional, ClassVar, NoReturn, Any
+from typing import Optional, ClassVar, NoReturn, Any, Union, Callable, Type
 
 import orjson
 from aiohttp import ClientSession, BasicAuth, web
 from aiohttp.abc import Application
 from aiohttp.typedefs import JSONEncoder, StrOrURL
 
+from core.api.configs import OAuthSessionConfigInterface
+from core.oauth2 import OAuth2
 from core.utils.base import make_trace_config
 from discord.core import API_ENDPOINT, API_ENDPOINT_GATEWAY
 from discord.core.objects.types.base import HttpMethod
 
 
-def default(obj):
-    if isinstance(obj, (datetime.date, datetime.datetime)):
-        return obj.isoformat()
-    raise TypeError
-
-
 class DiscordSession(AsyncContextDecorator):
     _base_url: ClassVar[StrOrURL] = None
+    _auth: ClassVar[Type[OAuth2]] = None
+    _config: ClassVar[Type[OAuthSessionConfigInterface]] = None
     _json_serialize: ClassVar[JSONEncoder] = lambda x: orjson.dumps(x,
-                                                                    default=default,
+                                                                    default=lambda obj: obj.isoformat() if isinstance(obj, (datetime.date, datetime.datetime)) else TypeError,
                                                                     option=orjson.OPT_PASSTHROUGH_DATETIME).decode()
     _client: ClassVar[ClientSession] = None
     _ws_client: ClassVar[ClientSession] = None
     _server: ClassVar[Application] = None
-        
-    def __init__(self, base_url: StrOrURL = None):
+
+    def __init__(self, base_url: StrOrURL = None,
+                 auth: Optional[Type[OAuth2]] = OAuth2,
+                 config: Optional[Type[OAuthSessionConfigInterface]] = None):
+
         self.trace_config = make_trace_config('Fuck')
         self._base_url = base_url
+        self._auth = auth
+        self._config = config
 
     async def __aenter__(self):
         self._server = web.Application()
-        self._client = ClientSession(base_url=self._base_url,
+        self._client = ClientSession(base_url=API_ENDPOINT,
+                                     auth=self._auth(self._config),
                                      trace_configs=self.trace_config,
                                      json_serialize=self._json_serialize)
         self._ws_client = ClientSession(base_url=self._base_url, json_serialize=self._json_serialize)
@@ -52,11 +56,11 @@ class DiscordSession(AsyncContextDecorator):
             if ws:
                 await ws.close()
 
-    async def send_request(self, method: HttpMethod, auth: Optional[BasicAuth], req: str, data: Optional[bytes] = None, **kwargs: Any) -> dict:
+    async def send_request(self, method: HttpMethod, req: str, data: Optional[bytes] = None, **kwargs: Any) -> dict:
         result: dict
         status: int
 
-        async with self._client.request(method=method, url=req, data=data, auth=auth, **kwargs) as resp:
+        async with self._client.request(method=method, url=req, data=data, **kwargs) as resp:
             result = await resp.json(loads=orjson.loads)
             status = resp.status
         return result

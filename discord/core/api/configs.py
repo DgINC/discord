@@ -2,54 +2,74 @@ from abc import ABC, abstractmethod
 from typing import NoReturn
 
 
-class SessionConfigInterface(ABC):
+class OAuthSessionConfigInterface(ABC):
     """@classmethod
     def __subclasshook__(cls, subclass):
         return (hasattr(subclass, 'get_data') and
                 callable(subclass.load_data_source) or
-                NotImplemented)"""
+                NotImplemented)
 
-    @abstractmethod
     @property
+    @abstractmethod
     async def version(self) -> int:
         raise NotImplementedError
-        
-    @abstractmethod
+
     @version.setter
+    @abstractmethod
     async def version(self, value) -> NoReturn:
         raise NotImplementedError
-        
-    @abstractmethod
+
     @version.getter
-    async def version(self) -> int:
-        raise NotImplementedError
-    
     @abstractmethod
+    async def version(self) -> int:
+        raise NotImplementedError"""
+
     @property
-    async def client_id(self) -> str:
+    @abstractmethod
+    async def client_id(self) -> int:
         raise NotImplementedError
 
-    @abstractmethod
     @client_id.setter
+    @abstractmethod
     async def client_id(self, value) -> NoReturn:
         raise NotImplementedError
 
-    @abstractmethod
     @client_id.getter
-    async def client_id(self) -> str:
+    @abstractmethod
+    async def client_id(self) -> int:
         raise NotImplementedError
 
-    @abstractmethod
     @client_id.deleter
+    @abstractmethod
     async def client_id(self) -> NoReturn:
         raise NotImplementedError
 
-    @abstractmethod
     @property
+    @abstractmethod
     async def client_secret(self) -> str:
         raise NotImplementedError
 
-    @abstractmethod
     @property
+    @abstractmethod
+    async def token(self) -> str:
+        raise NotImplementedError
+
+    @token.getter
+    @abstractmethod
+    async def token(self) -> str:
+        raise NotImplementedError
+
+    @token.setter
+    @abstractmethod
+    async def token(self, value) -> NoReturn:
+        raise NotImplementedError
+
+    @token.deleter
+    @abstractmethod
+    async def token(self) -> NoReturn:
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
     async def redirect_uri(self) -> str:
         raise NotImplementedError
