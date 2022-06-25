@@ -3,7 +3,7 @@ from typing import ClassVar, Type
 
 from core import API_ENDPOINT
 from core.api.configs import OAuthSessionConfigInterface
-from discord.core.oauth2 import OAuth2
+from discord.core.oauth2 import OAuth2Fasgr
 from discord.core.objects.guildobjects import GuildObject, GuildPreviewObject
 from discord.core.session import DiscordSession
 from discord.core.utils.base import GET

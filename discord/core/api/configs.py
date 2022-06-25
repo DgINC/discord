@@ -51,22 +51,22 @@ class OAuthSessionConfigInterface(ABC):
 
     @property
     @abstractmethod
-    async def token(self) -> str:
+    async def credentials(self) -> str:
         raise NotImplementedError
 
-    @token.getter
+    @credentials.getter
     @abstractmethod
-    async def token(self) -> str:
+    async def credentials(self) -> str:
         raise NotImplementedError
 
-    @token.setter
+    @credentials.setter
     @abstractmethod
-    async def token(self, value) -> NoReturn:
+    async def credentials(self, value) -> NoReturn:
         raise NotImplementedError
 
-    @token.deleter
+    @credentials.deleter
     @abstractmethod
-    async def token(self) -> NoReturn:
+    async def credentials(self) -> NoReturn:
         raise NotImplementedError
 
     @property
