@@ -8,7 +8,7 @@ from aiohttp.abc import Application
 from aiohttp.typedefs import JSONEncoder, StrOrURL
 
 from core.api.configs import OAuthConfigInterface
-from core.oauth2 import OAuth2Base
+from core.oauth2 import OAuth2
 from core.utils.base import make_trace_config
 from discord.core import API_ENDPOINT, API_ENDPOINT_GATEWAY
 from discord.core.objects.types.base import HttpMethod
@@ -16,7 +16,7 @@ from discord.core.objects.types.base import HttpMethod
 
 class DiscordSession(AsyncContextDecorator):
     _base_url: ClassVar[StrOrURL] = None
-    _auth: ClassVar[Type[OAuth2Base]] = None
+    _auth: ClassVar[Type[OAuth2Base]] = OAuth2
     _config: ClassVar[Type[OAuthConfigInterface]] = None
     _json_serialize: ClassVar[JSONEncoder] = lambda x: orjson.dumps(x,
                                                                     default=lambda obj: obj.isoformat() if isinstance(obj, (datetime.date, datetime.datetime)) else TypeError,
@@ -26,12 +26,10 @@ class DiscordSession(AsyncContextDecorator):
     _server: ClassVar[Application] = None
 
     def __init__(self, base_url: StrOrURL = None,
-                 auth: Optional[Type[OAuth2Base]] = OAuth2Base,
                  config: Optional[Type[OAuthConfigInterface]] = None):
 
         self.trace_config = make_trace_config('Fuck')
         self._base_url = base_url
-        self._auth = auth
         self._config = config
 
     async def __aenter__(self):
