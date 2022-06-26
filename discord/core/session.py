@@ -16,7 +16,7 @@ from discord.core.objects.types.base import HttpMethod
 
 class DiscordSession(AsyncContextDecorator):
     _base_url: ClassVar[StrOrURL] = None
-    _auth: ClassVar[Type[OAuth2Base]] = OAuth2
+    _auth: ClassVar[OAuth2] = OAuth2
     _config: ClassVar[Type[OAuthConfigInterface]] = None
     _json_serialize: ClassVar[JSONEncoder] = lambda x: orjson.dumps(x,
                                                                     default=lambda obj: obj.isoformat() if isinstance(obj, (datetime.date, datetime.datetime)) else TypeError,
