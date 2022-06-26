@@ -1,9 +1,7 @@
-import asyncio
 from typing import ClassVar, Type
 
 from core import API_ENDPOINT
-from core.api.configs import OAuthSessionConfigInterface
-from discord.core.oauth2 import OAuth2Fasgr
+from core.api.configs import OAuthConfigInterface
 from discord.core.objects.guildobjects import GuildObject, GuildPreviewObject
 from discord.core.session import DiscordSession
 from discord.core.utils.base import GET
@@ -11,11 +9,11 @@ from discord.core.utils.base import GET
 
 class Guild:
     _client: ClassVar[DiscordSession]
-    _config: ClassVar[Type[OAuthSessionConfigInterface]]
+    _config: ClassVar[Type[OAuthConfigInterface]]
     guild_id: int
     version: int
 
-    def __init__(self, guild_id: int, config: Type[OAuthSessionConfigInterface]):
+    def __init__(self, guild_id: int, config: Type[OAuthConfigInterface]):
         self.guild_id = guild_id
         self._config = config
 
@@ -29,19 +27,19 @@ class Guild:
     async def create(self, data: tuple) -> GuildObject:  # POST
         pass
 
-    async def get(self, with_counts: bool = False) -> GuildObject:   # GET
+    async def get(self, with_counts: bool = False) -> GuildObject:  # GET
         async with self._client.send_request(GET,
                                              f"/api/v{self.version}/guilds/{self.guild_id}",
                                              with_counts=with_counts) as resp:
             pass
 
-    async def get_preview(self) -> GuildPreviewObject:   # GET
+    async def get_preview(self) -> GuildPreviewObject:  # GET
         pass
 
-    async def modify(self):    # POST
+    async def modify(self):  # POST
         pass
 
-    async def delete(self):    # DELETE
+    async def delete(self):  # DELETE
         pass
 
     async def get_channels(self):  # GET
