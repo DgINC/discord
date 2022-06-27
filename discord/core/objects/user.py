@@ -1,15 +1,14 @@
 from dataclasses import dataclass
 from typing import TypeVar
 
-from pydantic import BaseModel
-
+from .base import BaseObject
 from .types.snowflake import SnowFlake
 
 UserID = TypeVar('UserID', bound=SnowFlake)
 
 
 @dataclass
-class User(BaseModel):
+class User(BaseObject):
     id: UserID
     username: str
     discriminator: str
