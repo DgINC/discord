@@ -1,4 +1,4 @@
-import asyncio
+"""import asyncio
 from random import randrange
 from types import SimpleNamespace
 
@@ -48,4 +48,4 @@ if __name__ == '__main__':
     loop.run_until_complete(main())
 
     loop.run_until_complete(asyncio.sleep(0.250))
-    loop.close()
+    loop.close()"""

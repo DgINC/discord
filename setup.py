@@ -8,7 +8,8 @@ install_requires = [
     'aiodns~=3.0.0',
     'pydantic~=1.9.0',
     'orjson~=3.6.7',
-    'oauthlib~=3.2.0'
+    'oauthlib~=3.2.0',
+    'exrex~=0.10.5'
 ]
 
 setup(
