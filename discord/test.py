@@ -49,3 +49,15 @@ if __name__ == '__main__':
 
     loop.run_until_complete(asyncio.sleep(0.250))
     loop.close()"""
+from core.session import DiscordSession
+
+
+class Test(DiscordSession):
+    def __init__(self):
+        super(Test, self).__init__()
+
+    def __aenter__(self) -> "Test":
+        return self
+
+    def __aexit__(self, exc_type, exc_val, exc_tb):
+        return False

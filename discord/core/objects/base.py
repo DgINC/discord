@@ -1,9 +1,9 @@
-from dataclasses import dataclass, fields
-from warnings import warn
-from typing import Any
-from .types.snowflake import SnowFlake
+from logging import warn
+from typing import Any, Tuple
 
-from pydantic import BaseModel
+from orjson import orjson
+from pydantic.dataclasses import dataclass
+from pydantic.json import pydantic_encoder
 
 
 class DeprecatedMetaclass(type):
@@ -15,22 +15,21 @@ class DeprecatedMetaclass(type):
         return super(DeprecatedMetaclass, self).__getattribute__(item)
 
 
-@dataclass
-class BaseObject(BaseModel):
-    __metaclass__ = DeprecatedMetaclass
-
-    class Config:
-        error_msg_templates = {
-            'value_error.any_str.max_length': 'max_length:{limit_value}',
-        }
+class MyConfig:
+    validate_assignment = False
+    require_by_default = False
 
 
-@dataclass
-class RequestMixin:
-    @classmethod
-    def from_request(cls, request):
-        values = request.get("input")
-        return cls(**values)
+class MetaObject(type):
+    def __new__(mcs, name: str, bases: Tuple[type, ...], dictionary: dict[str, Any], **kwargs: Any):
+        return super(MetaObject, mcs).__new__(mcs, name, bases, dictionary)
 
-    def to_json(self):
-        return json.dumps(asdict(self))
+    def __init__(cls, name: str, bases: Tuple[type, ...], dictionary: dict[str, Any], **kwargs: Any):
+        super(MetaObject, cls).__init__(name, bases, dictionary)
+
+
+@dataclass(config=MyConfig)
+class BaseObject(object, metaclass=MetaObject):
+    def to_json(self) -> str:
+        # orjson.dumps returns bytes, to match standard json.dumps we need to decode
+        return orjson.dumps(self, default=pydantic_encoder).decode()

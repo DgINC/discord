@@ -1,43 +1,40 @@
-from typing import ClassVar, Type, Optional
+from typing import Type, Optional
+
+from aiohttp.typedefs import StrOrURL
 
 from core import API_ENDPOINT
 from core.api.configs import OAuthConfigInterface
-from core.api.oauth import OAuth2SessionInterface
 from discord.core.objects.guildobjects import GuildObject, GuildPreviewObject
 from discord.core.session import DiscordSession
 from discord.core.utils.base import GET
 
 
-class Guild:
-    _client: ClassVar[DiscordSession] = None
-    _config: ClassVar[Type[OAuthConfigInterface]] = None
-    _oauth_session: ClassVar[Type[OAuth2SessionInterface]] = None
+class Guild(DiscordSession):
     guild_id: int
     version: int
 
     def __init__(self,
                  guild_id: int,
-                 config: Type[OAuthConfigInterface],
-                 oauth_session: Optional[Type[OAuth2SessionInterface]] = None):
-
+                 config: Type[OAuthConfigInterface]):
+        super(Guild, self).__init__(config)
         self.guild_id = guild_id
         self._config = config
-        self._oauth_session = oauth_session
+        self._base_url = API_ENDPOINT
 
-    async def __aenter__(self):
-        self._client = DiscordSession(base_url=API_ENDPOINT, config=self._config, oauth_session=self._oauth_session)
+    async def __aenter__(self) -> "Guild":
+        await super(Guild, self).__aenter__()
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
-        pass
+        await super(Guild, self).__aexit__(exc_type, exc_val, exc_tb)
+        return False
 
     async def create(self, data: tuple) -> GuildObject:  # POST
         pass
 
     async def get(self, with_counts: bool = False) -> GuildObject:  # GET
-        async with self._client.send_request(GET,
-                                             f"/api/v{self.version}/guilds/{self.guild_id}",
-                                             with_counts=with_counts) as resp:
+        async with self.send_request(GET, f"/api/v{self.version}/guilds/{self.guild_id}",
+                                     with_counts=with_counts) as resp:
             pass
 
     async def get_preview(self) -> GuildPreviewObject:  # GET

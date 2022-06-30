@@ -1,8 +1,7 @@
 from dataclasses import dataclass
 
-from .channel import ChannelID
-from .types.snowflake import SnowFlake
 from .base import BaseObject
+from .channel import ChannelID
 from .guildobjects import GuildMemberObject, GuildID
 from .user import UserID
 

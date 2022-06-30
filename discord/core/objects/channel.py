@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 from enum import IntEnum, IntFlag
 from typing import TypeVar, Union, Optional, Annotated, NewType, final
 
+from build.lib.discord.core.objects.channel import Message
 from .emojis import Emoji
 from .interactions import MessageInteraction, MessageComponent
 from .role import Role
@@ -10,7 +11,7 @@ from .types.snowflake import SnowFlake
 from .base import BaseObject
 from .guildobjects import GuildID, GuildMemberObject
 from .user import UserID, User
-from .application import ApplicationID, Application
+from .applicationobject import ApplicationID, ApplicationObject
 from .voice import VoiceRegion
 from ..utils.base import MaxLen
 
@@ -276,7 +277,7 @@ class Message(BaseObject):
     webhook_id: SnowFlake   # TODO: Rewrite to Webhook().id
     type: MessageType
     activity: MessageActivity
-    application: Application
+    application: ApplicationObject
     application_id: ApplicationID
     message_reference: MessageReference
     flags: MessageFlags

@@ -48,4 +48,4 @@ json_data = '{"code":50035,' \
 dct: dict = orjson.loads(json_data)
 
 result = BaseJsonObject(**dct)
-#print(result)
+print(result)

@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from enum import IntEnum, IntFlag
 from typing import TypeVar
 
-from .application import ApplicationID
+from .applicationobject import ApplicationID
 from .base import BaseObject
 from .channel import ChannelID, Channel
 from .emojis import Emoji

@@ -2,6 +2,8 @@ from dataclasses import dataclass, field
 from enum import IntEnum
 from typing import Annotated, Optional, Union
 
+from discord.core.objects.interactions import MessageComponent
+
 from .emojis import Emoji
 from .guildobjects import GuildMemberObject
 from .types.snowflake import SnowFlake

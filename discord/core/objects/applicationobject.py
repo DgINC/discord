@@ -2,8 +2,7 @@ from dataclasses import dataclass
 from enum import IntFlag
 from typing import TypeVar, final
 
-from pydantic import BaseModel
-
+from core.objects.base import BaseObject
 from discord.core.objects.team import Team
 from discord.core.objects.types.snowflake import SnowFlake
 from discord.core.objects.user import User
@@ -24,7 +23,7 @@ class ApplicationFlag(IntFlag):
 
 
 @dataclass
-class Application(BaseModel):
+class ApplicationObject(BaseObject):
     id: ApplicationID
     name: str
     icon: str

@@ -1,19 +1,20 @@
-import exrex
 from random import randrange
-from typing import ClassVar, Type, Optional
+from typing import ClassVar, Optional, Type
 
-from aiohttp import ClientSession, BasicAuth
+import exrex
+from aiohttp.abc import Application
+from aiohttp.typedefs import StrOrURL
 from oauthlib.oauth2 import WebApplicationClient
 
 from core import OAUTH_AUTHORIZE
 from core.api.configs import OAuthConfigInterface
 from core.api.oauth import OAuth2SessionInterface
 from core.objects.oauth2.base import DiscordScope
+from core.session import DiscordSession
 from core.utils.base import POST
 
 
-class OAuth2Base:
-    _client: ClassVar[ClientSession] = None
+class OAuth2(DiscordSession):
     _server: ClassVar[Application] = None
     _oauth: ClassVar[WebApplicationClient] = None
     _config: ClassVar[Type[OAuthConfigInterface]] = None
@@ -22,13 +23,22 @@ class OAuth2Base:
     def __init__(self,
                  config: Optional[Type[OAuthConfigInterface]] = None,
                  oauth_session: Optional[Type[OAuth2SessionInterface]] = None,
+                 server: Optional[Application] = None,
                  **kwargs):
-        self._client = ClientSession()
+        super(OAuth2, self).__init__(config, **kwargs)
+
         self._oauth = WebApplicationClient(self._config.client_id)
         self._config = config
-        self._server = Application
+        self._server = server
         self._oauth_session = oauth_session
-        super(OAuth2Base, self).__init__()
+
+    async def __aenter__(self):
+        await super(OAuth2, self).__aenter__()
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        await super(OAuth2, self).__aexit__(exc_type, exc_val, exc_tb)
+        return False
 
     async def authorization_code_grant(self, scopes: list[DiscordScope], **kwargs):
         self._oauth_session.code_verifier = self._oauth.create_code_verifier(randrange(43, 128))
@@ -44,21 +54,5 @@ class OAuth2Base:
                                         state=self._oauth_session.state,
                                         **kwargs
                                         )
-        async with self._client.request(method=POST, url=req) as resp:
-            print(resp.status)
-            print(await resp.text())
-
-
-class OAuth2(BasicAuth):
-    _config: ClassVar[Optional[Type[OAuthConfigInterface]]] = None
-
-    def __init__(self,
-                 config: Optional[Type[OAuthConfigInterface]] = None,
-                 oauth_session: Optional[Type[OAuth2SessionInterface]] = None,
-                 **kwargs):
-        super(OAuth2, self).__init__(config=config, oauth_session=oauth_session, **kwargs)
-        self._config = config
-
-    def encode(self) -> str:
-        """Encode credentials. 'Bearer %s'"""
-        return f'Bearer {self._confi,g.credentials}'
+        response: dict = await self.send_request(method=POST, request=req)
+        print(response)
