@@ -14,7 +14,7 @@ from core.utils.base import POST
 
 class OAuth2Base:
     _client: ClassVar[ClientSession] = None
-    _server: ClassVar[Application] = Application
+    _server: ClassVar[Application] = None
     _oauth: ClassVar[WebApplicationClient] = None
     _config: ClassVar[Type[OAuthConfigInterface]] = None
     _oauth_session: ClassVar[Type[OAuth2SessionInterface]] = None
@@ -26,6 +26,7 @@ class OAuth2Base:
         self._client = ClientSession()
         self._oauth = WebApplicationClient(self._config.client_id)
         self._config = config
+        self._server = Application
         self._oauth_session = oauth_session
         super(OAuth2Base, self).__init__()
 
