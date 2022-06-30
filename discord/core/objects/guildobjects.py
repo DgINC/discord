@@ -2,16 +2,15 @@ from dataclasses import dataclass, field
 from enum import IntEnum, IntFlag
 from typing import TypeVar
 
-from .applicationobject import ApplicationID
-from .base import BaseObject
-from .channel import ChannelID, Channel
-from .emojis import Emoji
-from .role import Role, RoleID
-from .stickerobjects import StickerObject
-from .types.snowflake import SnowFlake
-from .user import User
-from .user import UserID
-from .voice import VoiceState
+from core.objects.types.snowflake import SnowFlake
+from discord.core.objects.applicationobject import ApplicationID
+from discord.core.objects.baseobject import BaseObject
+from discord.core.objects.channel import ChannelID, Channel
+from discord.core.objects.emojis import Emoji
+from discord.core.objects.role import RoleID, Role
+from discord.core.objects.stickerobjects import StickerObject
+from discord.core.objects.user import User, UserID
+from discord.core.objects.voice import VoiceState
 
 GuildID = TypeVar('GuildID', bound=SnowFlake)
 

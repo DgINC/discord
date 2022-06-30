@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 
-from .base import BaseObject
-from .types.snowflake import SnowFlake
-from .user import User
+from discord.core.objects.baseobject import BaseObject
+from discord.core.objects.types.snowflake import SnowFlake
+from discord.core.objects.user import User
 
 
 @dataclass

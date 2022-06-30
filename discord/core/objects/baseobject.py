@@ -1,18 +1,9 @@
-from logging import warn
+from logging import warning
 from typing import Any, Tuple
 
 from orjson import orjson
 from pydantic.dataclasses import dataclass
 from pydantic.json import pydantic_encoder
-
-
-class DeprecatedMetaclass(type):
-
-    def __getattribute__(self, item) -> Any:
-        if item == "deprecated":
-            warn(f'{item} class variable is deprecated', DeprecationWarning)
-            return type.__getattribute__(self, item)
-        return super(DeprecatedMetaclass, self).__getattribute__(item)
 
 
 class MyConfig:
@@ -26,6 +17,12 @@ class MetaObject(type):
 
     def __init__(cls, name: str, bases: Tuple[type, ...], dictionary: dict[str, Any], **kwargs: Any):
         super(MetaObject, cls).__init__(name, bases, dictionary)
+
+    def __getattribute__(self, item) -> Any:
+        if item == "deprecated":
+            warning(f'{item} class variable is deprecated', DeprecationWarning)
+            return type.__getattribute__(self, item)
+        return super(MetaObject, self).__getattribute__(item)
 
 
 @dataclass(config=MyConfig)

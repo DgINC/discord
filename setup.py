@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '0.0.1'
+version = '0.0.2'
 
 install_requires = [
     'setuptools~=57.0.0',
@@ -34,4 +34,4 @@ setup(
     ],
     packages=find_packages(),
     install_requires=install_requires,
-    )
+)

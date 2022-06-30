@@ -1,15 +1,15 @@
 from dataclasses import dataclass, field
 from enum import IntEnum
-from typing import Annotated, Optional, Union
+from typing import Annotated
 
-from discord.core.objects.interactions import MessageComponent
+import discord.core.objects.interactions
 
-from .emojis import Emoji
-from .guildobjects import GuildMemberObject
-from .types.snowflake import SnowFlake
-from .base import BaseObject
-from .user import User
-from ..utils.base import MaxLen
+from discord.core.objects.baseobject import BaseObject
+from discord.core.objects.emojis import Emoji
+from discord.core.objects.guildobjects import GuildMemberObject
+from discord.core.objects.types.snowflake import SnowFlake
+from discord.core.objects.user import User
+from discord.core.utils.base import MaxLen
 
 
 class InteractionType(IntEnum):
@@ -21,7 +21,7 @@ class InteractionType(IntEnum):
 
 @dataclass
 class MessageInteraction(BaseObject):
-    id: SnowFlake   # TODO: Rewrite to InteractionID
+    id: SnowFlake  # TODO: Rewrite to InteractionID
     type: InteractionType
     name: str
     user: User
@@ -62,6 +62,7 @@ class MessageComponent(BaseObject):
     url: str
     options: list[SelectOption]
     placeholder: str
-    min_values: int = field(default=1)  # TODO: the minimum number of items that must be chosen; default 1, min 0, max 25
+    min_values: int = field(
+        default=1)  # TODO: the minimum number of items that must be chosen; default 1, min 0, max 25
     max_values: int = field(default=1)  # TODO: the maximum number of items that can be chosen; default 1, max 25
-    components: list[MessageComponent] = field(default_factory=list)    # TODO: Fix this shit
+    components: list[discord.core.objects.interactions.MessageComponent] = field(default_factory=list)  # TODO: Fix this shit

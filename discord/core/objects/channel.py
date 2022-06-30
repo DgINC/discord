@@ -2,18 +2,19 @@ from dataclasses import dataclass, field
 from enum import IntEnum, IntFlag
 from typing import TypeVar, Union, Optional, Annotated, NewType, final
 
-from build.lib.discord.core.objects.channel import Message
-from .emojis import Emoji
-from .interactions import MessageInteraction, MessageComponent
-from .role import Role
-from .stickerobjects import StickerObject, StickerItem
-from .types.snowflake import SnowFlake
-from .base import BaseObject
-from .guildobjects import GuildID, GuildMemberObject
-from .user import UserID, User
-from .applicationobject import ApplicationID, ApplicationObject
-from .voice import VoiceRegion
-from ..utils.base import MaxLen
+from discord.core.objects.channel import Message
+
+from discord.core.objects.applicationobject import ApplicationID, ApplicationObject
+from discord.core.objects.baseobject import BaseObject
+from discord.core.objects.emojis import Emoji
+from discord.core.objects.guildobjects import GuildID, GuildMemberObject
+from discord.core.objects.interactions import MessageInteraction, MessageComponent
+from discord.core.objects.role import Role
+from discord.core.objects.stickerobjects import StickerItem, StickerObject
+from discord.core.objects.types.snowflake import SnowFlake
+from discord.core.objects.user import UserID, User
+from discord.core.objects.voice import VoiceRegion
+from discord.core.utils.base import MaxLen
 
 ChannelID = TypeVar('ChannelID', bound=SnowFlake)
 CategoryID = TypeVar('CategoryID', bound=SnowFlake)
@@ -177,7 +178,7 @@ class Attachment(BaseObject):
     id: AttachID
     filename: str
     description: str
-    content_type: str   # TODO: Generate MIME-type automatically
+    content_type: str  # TODO: Generate MIME-type automatically
     size: int
     url: str
     proxy_url: str
@@ -266,7 +267,7 @@ class Message(BaseObject):
     edited_timestamp: Optional[Union[int, None]]
     tts: bool
     mention_everyone: bool
-    mentions: list[User]    # array of user objects, with an additional partial member field
+    mentions: list[User]  # array of user objects, with an additional partial member field
     mention_roles: list[Role.id]
     mention_channels: list[ChannelMention]
     attachments: list[Attachment]
@@ -274,7 +275,7 @@ class Message(BaseObject):
     reactions: list[Reaction]
     nonce: Optional[Union[int, str]]
     pinned: bool
-    webhook_id: SnowFlake   # TODO: Rewrite to Webhook().id
+    webhook_id: SnowFlake  # TODO: Rewrite to Webhook().id
     type: MessageType
     activity: MessageActivity
     application: ApplicationObject

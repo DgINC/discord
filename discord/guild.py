@@ -1,9 +1,7 @@
-from typing import Type, Optional
+from typing import Type
 
-from aiohttp.typedefs import StrOrURL
-
-from core import API_ENDPOINT
-from core.api.configs import OAuthConfigInterface
+from discord.core.api.configs import OAuthConfigInterface
+from discord.core import API_ENDPOINT
 from discord.core.objects.guildobjects import GuildObject, GuildPreviewObject
 from discord.core.session import DiscordSession
 from discord.core.utils.base import GET
@@ -15,11 +13,11 @@ class Guild(DiscordSession):
 
     def __init__(self,
                  guild_id: int,
-                 config: Type[OAuthConfigInterface]):
-        super(Guild, self).__init__(config)
+                 config: Type[OAuthConfigInterface] = None):
+        self._base_url = API_ENDPOINT
+        super(Guild, self).__init__(self._base_url, config)
         self.guild_id = guild_id
         self._config = config
-        self._base_url = API_ENDPOINT
 
     async def __aenter__(self) -> "Guild":
         await super(Guild, self).__aenter__()
@@ -33,9 +31,10 @@ class Guild(DiscordSession):
         pass
 
     async def get(self, with_counts: bool = False) -> GuildObject:  # GET
-        async with self.send_request(GET, f"/api/v{self.version}/guilds/{self.guild_id}",
-                                     with_counts=with_counts) as resp:
-            pass
+        resp: dict = await self.send_request(GET,
+                                             f"/api/v{self.version}/guilds/{self.guild_id}",
+                                             with_counts=with_counts)
+        return GuildObject(**resp)
 
     async def get_preview(self) -> GuildPreviewObject:  # GET
         pass

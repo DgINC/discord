@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 from typing import TypeVar
 
-from .types.snowflake import SnowFlake
-from .role import Role
-from .user import User
-from .base import BaseObject
+from discord.core.objects.baseobject import BaseObject
+from discord.core.objects.role import Role
+from discord.core.objects.types.snowflake import SnowFlake
+from discord.core.objects.user import User
 
 EmojiID = TypeVar('EmojiID', bound=SnowFlake)
 

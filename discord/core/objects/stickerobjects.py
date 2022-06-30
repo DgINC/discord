@@ -2,10 +2,12 @@ from dataclasses import dataclass
 from enum import IntEnum
 from typing import TypeVar
 
-from .base import BaseObject
-from .guildobjects import GuildID
-from .types.snowflake import SnowFlake
-from .user import User
+from discord.core.objects.user import User
+
+from discord.core.objects.guildobjects import GuildID
+
+from discord.core.objects.baseobject import BaseObject
+from discord.core.objects.types.snowflake import SnowFlake
 
 StickerID = TypeVar('StickerID', bound=SnowFlake)
 
@@ -42,4 +44,3 @@ class StickerObject(BaseObject):
     guild_id: GuildID
     user: User
     sort_value: int
-

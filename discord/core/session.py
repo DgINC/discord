@@ -1,5 +1,5 @@
 import datetime
-from typing import Optional, ClassVar, NoReturn, Any, Type
+from typing import Optional, ClassVar, Any, Type
 
 import orjson
 from aiohttp import ClientSession, web
@@ -18,14 +18,16 @@ class DiscordSession(object):
     _auth: ClassVar[Auth] = None
     _config: ClassVar[Type[OAuthConfigInterface]] = None
     _json_serialize: ClassVar[JSONEncoder] = lambda x: orjson.dumps(x,
-                                                                    default=lambda obj: obj.isoformat() if isinstance(obj, (datetime.date, datetime.datetime)) else TypeError,
+                                                                    default=lambda obj: obj.isoformat() if isinstance(
+                                                                        obj, (datetime.date,
+                                                                              datetime.datetime)) else TypeError,
                                                                     option=orjson.OPT_PASSTHROUGH_DATETIME).decode()
     _client: ClassVar[ClientSession] = None
     _ws_client: ClassVar[ClientSession] = None
     _server: ClassVar[Application] = None
 
     def __init__(self, base_url: StrOrURL = None,
-                 config: Optional[Type[OAuthConfigInterface]] = None,
+                 config: Type[OAuthConfigInterface] = None,
                  **kwargs):
 
         self.trace_config = make_trace_config('Fuck')

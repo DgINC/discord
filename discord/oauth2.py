@@ -3,7 +3,6 @@ from typing import ClassVar, Optional, Type
 
 import exrex
 from aiohttp.abc import Application
-from aiohttp.typedefs import StrOrURL
 from oauthlib.oauth2 import WebApplicationClient
 
 from core import OAUTH_AUTHORIZE
@@ -42,17 +41,18 @@ class OAuth2(DiscordSession):
 
     async def authorization_code_grant(self, scopes: list[DiscordScope], **kwargs):
         self._oauth_session.code_verifier = self._oauth.create_code_verifier(randrange(43, 128))
-        self._oauth_session.code_challenge = self._oauth.create_code_challenge(self._oauth_session.code_verifier, 'S256')
+        self._oauth_session.code_challenge = self._oauth.create_code_challenge(self._oauth_session.code_verifier,
+                                                                               'S256')
 
         self._oauth_session.state = exrex.getone('[a-zA-Z0-9]{9}')
 
         req: str = self._oauth.prepare_request_uri(OAUTH_AUTHORIZE,
-                                        redirect_uri=self._config.redirect_uri,
-                                        scope=scopes,
-                                        code_challenge=self._oauth_session.code_verifier,
-                                        code_challenge_method='S256',
-                                        state=self._oauth_session.state,
-                                        **kwargs
-                                        )
+                                                   redirect_uri=self._config.redirect_uri,
+                                                   scope=scopes,
+                                                   code_challenge=self._oauth_session.code_verifier,
+                                                   code_challenge_method='S256',
+                                                   state=self._oauth_session.state,
+                                                   **kwargs
+                                                   )
         response: dict = await self.send_request(method=POST, request=req)
         print(response)

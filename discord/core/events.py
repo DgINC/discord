@@ -25,7 +25,7 @@ GUILDIntents = [
     "STAGE_INSTANCE_CREATE",
     "STAGE_INSTANCE_UPDATE",
     "STAGE_INSTANCE_DELETE"
-    ]
+]
 
 
 class Intents(IntFlag):

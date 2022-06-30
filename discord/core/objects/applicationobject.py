@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from enum import IntFlag
 from typing import TypeVar, final
 
-from core.objects.base import BaseObject
+from core.objects.baseobject import BaseObject
 from discord.core.objects.team import Team
 from discord.core.objects.types.snowflake import SnowFlake
 from discord.core.objects.user import User

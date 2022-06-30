@@ -1,4 +1,4 @@
-import dataclasses
+"""import dataclasses
 from typing import List, Any, Tuple
 
 import orjson
@@ -48,4 +48,4 @@ json_data = '{"code":50035,' \
 dct: dict = orjson.loads(json_data)
 
 result = BaseJsonObject(**dct)
-print(result)
+print(result)"""

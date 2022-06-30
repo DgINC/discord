@@ -7,6 +7,9 @@ from discord.core.objects.types.base import HttpMethod
 
 
 class MaxLen:
+    """
+    Maxlen
+    """
     def __init__(self, value):
         self.value = value
 
@@ -21,11 +24,17 @@ HEAD: HttpMethod = "HEAD"
 
 
 def make_trace_config(name=None) -> TraceConfig:
-    def _trace_config_ctx_factory(trace_request_ctx):
+    """
+
+    :param name:
+    :return:
+    """
+    def _trace_config_ctx_factory(trace_request_ctx) -> "SimpleNamespace":
         return SimpleNamespace(
             name=name,
             trace_request_ctx=trace_request_ctx
         )
+
     trace_config = TraceConfig(trace_config_ctx_factory=_trace_config_ctx_factory)
     trace_config.on_request_start.append(on_request_start)
     trace_config.on_request_end.append(on_request_end)
