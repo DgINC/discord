@@ -14,6 +14,7 @@ from core.utils.base import POST
 
 class OAuth2Base:
     _client: ClassVar[ClientSession] = None
+    _server: ClassVar[Application] = Application
     _oauth: ClassVar[WebApplicationClient] = None
     _config: ClassVar[Type[OAuthConfigInterface]] = None
     _oauth_session: ClassVar[Type[OAuth2SessionInterface]] = None
@@ -59,4 +60,4 @@ class OAuth2(BasicAuth):
 
     def encode(self) -> str:
         """Encode credentials. 'Bearer %s'"""
-        return f'Bearer {self._config.credentials}'
+        return f'Bearer {self._confi,g.credentials}'
