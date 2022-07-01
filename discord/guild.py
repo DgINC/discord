@@ -2,7 +2,7 @@ from typing import Type
 
 from discord.core.api.configs import OAuthConfigInterface
 from discord.core import API_ENDPOINT
-from discord.core.objects.guildobjects import GuildObject, GuildPreviewObject
+from discord.core.objects.guild import GuildObject, GuildPreviewObject
 from discord.core.session import DiscordSession
 from discord.core.utils.base import GET
 

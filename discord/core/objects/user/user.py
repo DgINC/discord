@@ -1,14 +1,14 @@
 from dataclasses import dataclass
-from typing import TypeVar
 
-from discord.core.objects.baseobject import BaseObject
-from discord.core.objects.types.snowflake import SnowFlake
-
-UserID = TypeVar('UserID', bound=SnowFlake)
+from core.objects import BaseObject
+from core.objects.types import UserID
 
 
 @dataclass
-class User(BaseObject):
+class UserObject(BaseObject):
+    """
+    UserObject
+    """
     id: UserID
     username: str
     discriminator: str

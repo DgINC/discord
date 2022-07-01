@@ -28,7 +28,3 @@ class SnowFlakeTimestamp(SnowFlake[T]):
 
         ret = ((temp >> self.worker_id_bits >> self.process_id_bits >> self.increment) + self.discord_epoch)
         return ret
-
-
-BotID = TypeVar('BotID', bound=SnowFlake)
-IntegrID = TypeVar('IntegrID', bound=SnowFlake)

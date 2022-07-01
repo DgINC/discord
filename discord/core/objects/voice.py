@@ -1,9 +1,8 @@
 from dataclasses import dataclass
 
+from discord.core.objects.types.base import GuildID, ChannelID, UserID
 from discord.core.objects.baseobject import BaseObject
-from discord.core.objects.channel import ChannelID
-from discord.core.objects.guildobjects import GuildID, GuildMemberObject
-from discord.core.objects.user import UserID
+from discord.core.objects.guild import guildmemberobject
 
 
 @dataclass

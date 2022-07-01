@@ -1,10 +1,7 @@
 from dataclasses import dataclass
-from typing import TypeVar
 
+from discord.core.objects.types.base import RoleID, BotID, IntegrID
 from discord.core.objects.baseobject import BaseObject
-from discord.core.objects.types.snowflake import SnowFlake, BotID, IntegrID
-
-RoleID = TypeVar('RoleID', bound=SnowFlake)
 
 
 @dataclass

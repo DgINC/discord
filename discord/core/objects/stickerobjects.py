@@ -1,15 +1,9 @@
 from dataclasses import dataclass
 from enum import IntEnum
-from typing import TypeVar
 
+from discord.core.objects.types.base import StickerID, GuildID
 from discord.core.objects.user import User
-
-from discord.core.objects.guildobjects import GuildID
-
 from discord.core.objects.baseobject import BaseObject
-from discord.core.objects.types.snowflake import SnowFlake
-
-StickerID = TypeVar('StickerID', bound=SnowFlake)
 
 
 class StickerType(IntEnum):

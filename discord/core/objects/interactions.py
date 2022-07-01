@@ -1,12 +1,10 @@
 from dataclasses import dataclass, field
 from enum import IntEnum
-from typing import Annotated
-
-import discord.core.objects.interactions
+from typing import Annotated, Any
 
 from discord.core.objects.baseobject import BaseObject
 from discord.core.objects.emojis import Emoji
-from discord.core.objects.guildobjects import GuildMemberObject
+from discord.core.objects.guild import guildmemberobject
 from discord.core.objects.types.snowflake import SnowFlake
 from discord.core.objects.user import User
 from discord.core.utils.base import MaxLen
@@ -65,4 +63,4 @@ class MessageComponent(BaseObject):
     min_values: int = field(
         default=1)  # TODO: the minimum number of items that must be chosen; default 1, min 0, max 25
     max_values: int = field(default=1)  # TODO: the maximum number of items that can be chosen; default 1, max 25
-    components: list[discord.core.objects.interactions.MessageComponent] = field(default_factory=list)  # TODO: Fix this shit
+    components: list[Any] = field(default_factory=list)  # TODO: Set type to "MessageComponent"
