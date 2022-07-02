@@ -1,6 +1,6 @@
 from enum import IntFlag
 from typing import final, Final
-from discord.core.objects.application.applicationobject import ApplicationObject
+from discord.core.objects.application.application import ApplicationObject
 
 __all__ = [
     "ApplicationFlag",

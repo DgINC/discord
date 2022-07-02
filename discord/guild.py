@@ -1,13 +1,16 @@
 from typing import Type
 
-from discord.core.api.configs import OAuthConfigInterface
 from discord.core import API_ENDPOINT
+from discord.core.api.configs import OAuthConfigInterface
 from discord.core.objects.guild import GuildObject, GuildPreviewObject
 from discord.core.session import DiscordSession
-from discord.core.utils.base import GET
+from discord.core.utils import GET
 
 
 class Guild(DiscordSession):
+    """
+    Guild
+    """
     guild_id: int
     version: int
 
@@ -31,6 +34,11 @@ class Guild(DiscordSession):
         pass
 
     async def get(self, with_counts: bool = False) -> GuildObject:  # GET
+        """
+
+        :param with_counts:
+        :return:
+        """
         resp: dict = await self.send_request(GET,
                                              f"/api/v{self.version}/guilds/{self.guild_id}",
                                              with_counts=with_counts)

@@ -4,7 +4,7 @@ from core.objects import BaseObject
 
 
 @dataclass
-class ThreadMetadata(BaseObject):
+class ThreadMetadataObject(BaseObject):
     """
     ThreadMetadata
     """

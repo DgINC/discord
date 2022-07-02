@@ -3,46 +3,53 @@ from typing import final, Final, NewType
 
 __all__ = [
     "EmbedType",
-    "EmbedThumbnail",
-    "EmbedImage",
-    "EmbedVideo",
+    "EmbedThumbnailObject",
+    "EmbedImageObject",
+    "EmbedVideoObject",
     "AutoArchiveDuration",
     "ChannelType",
     "MessageType",
-    "MessageActivity",
     "VideoQualityMode",
     "MessageFlags",
     "AttachmentObject",
+    "ChannelObject",
     "ChannelMention",
-    "EmbedStructure",
     "EmbedObject",
-    "EmbedAuthor",
-    "EmbedField",
-    "EmbedFooter",
-    "EmbedProvider",
+    "EmbedAuthorObject",
+    "EmbedFieldObject",
+    "EmbedFooterObject",
+    "EmbedProviderObject",
+    "EmbedStructureObject",
     "MessageObject",
-    "Overwrite",
-    "ThreadMember",
-    "ThreadMetadata"
+    "MessageActivity",
+    "MessageReferenceObject",
+    "OverwriteObject",
+    "ReactionObject",
+    "ThreadMemberObject",
+    "ThreadMetadataObject"
 ]
 
 from core.objects.channel.attachment import AttachmentObject
+from core.objects.channel.channel import ChannelObject
 from core.objects.channel.channelmention import ChannelMention
-from core.objects.channel.embedstructure import EmbedStructure, EmbedObject
-from core.objects.channel.embedauthor import EmbedAuthor
-from core.objects.channel.embedfield import EmbedField
-from core.objects.channel.embedfooter import EmbedFooter
-from core.objects.channel.embedprovider import EmbedProvider
+from core.objects.channel.embed import EmbedObject
+from core.objects.channel.embedstructure import EmbedStructureObject
+from core.objects.channel.embedauthor import EmbedAuthorObject
+from core.objects.channel.embedfieldobject import EmbedFieldObject
+from core.objects.channel.embedfooterobject import EmbedFooterObject
+from core.objects.channel.embedproviderobject import EmbedProviderObject
 from core.objects.channel.message import MessageObject
-from core.objects.channel.overwrite import Overwrite
-from core.objects.channel.threadmember import ThreadMember
-from core.objects.channel.threadmetadata import ThreadMetadata
+from core.objects.channel.messagereference import MessageReferenceObject
+from core.objects.channel.overwrite import OverwriteObject
+from core.objects.channel.reaction import ReactionObject
+from core.objects.channel.threadmemberobject import ThreadMemberObject
+from core.objects.channel.threadmetadataobject import ThreadMetadataObject
 
 EmbedType: Final = {'rich', 'image', 'video', 'gifv', 'article', 'link'}
 
-EmbedThumbnail = NewType('EmbedThumbnail', EmbedStructure)
-EmbedImage = NewType('EmbedImage', EmbedStructure)
-EmbedVideo = NewType('EmbedVideo', EmbedStructure)
+EmbedThumbnailObject = NewType('EmbedThumbnail', EmbedStructureObject)
+EmbedImageObject = NewType('EmbedImage', EmbedStructureObject)
+EmbedVideoObject = NewType('EmbedVideo', EmbedStructureObject)
 
 
 @final

@@ -8,12 +8,15 @@ from aiohttp.typedefs import JSONEncoder, StrOrURL
 
 from core.api.configs import OAuthConfigInterface
 from core.auth import Auth
-from core.utils.base import make_trace_config
+from core.utils import make_trace_config
 from discord.core import API_ENDPOINT_GATEWAY
-from discord.core.objects.types.base import HttpMethod
+from discord.core.objects.types import HttpMethod
 
 
 class DiscordSession(object):
+    """
+    DiscordSession
+    """
     _base_url: ClassVar[Optional[StrOrURL]] = None
     _auth: ClassVar[Auth] = None
     _config: ClassVar[Type[OAuthConfigInterface]] = None
@@ -58,6 +61,14 @@ class DiscordSession(object):
                 await ws.close()
 
     async def send_request(self, method: HttpMethod, request: str, data: Optional[bytes] = None, **kwargs: Any) -> dict:
+        """
+
+        :param method:
+        :param request:
+        :param data:
+        :param kwargs:
+        :return:
+        """
         result: dict
         status: int
 

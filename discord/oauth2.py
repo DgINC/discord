@@ -10,10 +10,13 @@ from core.api.configs import OAuthConfigInterface
 from core.api.oauth import OAuth2SessionInterface
 from core.objects.oauth2.base import DiscordScope
 from core.session import DiscordSession
-from core.utils.base import POST
+from core.utils import POST
 
 
 class OAuth2(DiscordSession):
+    """
+    OAuth2
+    """
     _server: ClassVar[Application] = None
     _oauth: ClassVar[WebApplicationClient] = None
     _config: ClassVar[Type[OAuthConfigInterface]] = None

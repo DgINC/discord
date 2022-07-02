@@ -2,9 +2,11 @@ from dataclasses import dataclass, field
 from typing import Optional, Union, Annotated
 
 from core.objects import BaseObject
-from core.objects.channel import ChannelType, ThreadMetadata, ThreadMember, AutoArchiveDuration, Overwrite
+from core.objects.channel import ChannelType, ThreadMetadataObject, ThreadMemberObject, AutoArchiveDuration, OverwriteObject, \
+    VideoQualityMode
 from core.objects.types import ChannelID, GuildID, MessageID, UserID, ApplicationID, CategoryID
 from core.objects.user import UserObject
+from core.objects.voice import VoiceRegionObject
 from core.utils.base import MaxLen
 
 
@@ -30,12 +32,12 @@ class ChannelObject(BaseObject):
     application_id: ApplicationID
     parent_id: Optional[Union[CategoryID, ChannelID]]
     last_pin_timestamp: Optional[int, None]
-    rtc_region: Optional[VoiceRegion.id]
+    rtc_region: Optional[VoiceRegionObject.id]
     video_quality_mode: VideoQualityMode
     message_count: Annotated[int, MaxLen(50)]
     member_count: Annotated[int, MaxLen(50)]
-    thread_metadata: ThreadMetadata
-    member: ThreadMember
+    thread_metadata: ThreadMetadataObject
+    member: ThreadMemberObject
     default_auto_archive_duration: AutoArchiveDuration
     permissions: str
-    permission_overwrites: list[Overwrite] = field(default_factory=list)
+    permission_overwrites: list[OverwriteObject] = field(default_factory=list)

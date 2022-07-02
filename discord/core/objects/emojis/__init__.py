@@ -1,5 +1,5 @@
 __all__ = [
-    "UserObject"
+    "EmojiObject"
 ]
 
-from core.objects.user import UserObject
+from core.objects.emojis.emojis import EmojiObject

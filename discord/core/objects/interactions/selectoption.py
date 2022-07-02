@@ -5,10 +5,12 @@ from core.objects.emojis import EmojiObject
 
 
 @dataclass
-class ReactionObject(BaseObject):
+class SelectOptionObject(BaseObject):
     """
-    ReactionObject
+    SelectOptionObject
     """
-    count: int
-    me: bool
+    label: str
+    value: str
+    description: str
     emoji: EmojiObject
+    default: bool

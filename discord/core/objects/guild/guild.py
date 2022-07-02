@@ -1,9 +1,13 @@
 from dataclasses import dataclass, field
 
-from discord.core.objects.baseobject import BaseObject
-from discord.core.objects.guild import VerificationLevel, MessageNotificationLevel, MFALevel, \
-    ExplicitContentFilterLevel, SystemChannelFlags, GuildMemberObject, GuildFutures
-from discord.core.objects.types.base import GuildID, UserID, ApplicationID, ChannelID
+from core.objects import BaseObject
+from core.objects.channel import ChannelObject
+from core.objects.emojis import EmojiObject
+from core.objects.guild import VerificationLevel, MessageNotificationLevel, MFALevel, ExplicitContentFilterLevel, \
+    SystemChannelFlags, GuildMemberObject, GuildFutures
+from core.objects.role import RoleObject
+from core.objects.types import GuildID, UserID, ApplicationID, ChannelID
+from core.objects.voice import VoiceStateObject
 
 
 @dataclass
@@ -17,7 +21,7 @@ class GuildObject(BaseObject):
     icon_hash: str
     splash: str
     description: str
-    emojis: list[Emoji]
+    emojis: list[EmojiObject]
     banner: str
     owner: bool
     owner_id: UserID
@@ -28,7 +32,7 @@ class GuildObject(BaseObject):
     system_channel_id: ChannelID
     widget_enabled: bool
     verification_level: VerificationLevel
-    roles: list[Role]
+    roles: list[RoleObject]
     default_message_notifications: MessageNotificationLevel
     mfa_level: MFALevel
     explicit_content_filter: ExplicitContentFilterLevel
@@ -45,11 +49,11 @@ class GuildObject(BaseObject):
     large: bool
     unavailable: bool
     member_count: int
-    channels: list[Channel]
-    threads: list[Channel]
+    channels: list[ChannelObject]
+    threads: list[ChannelObject]
     nsfw: bool
     # presences: list[] #TODO: Write presences impl
-    voice_states: list[VoiceState] = field(default_factory=list)
+    voice_states: list[VoiceStateObject] = field(default_factory=list)
     members: list[GuildMemberObject] = field(default_factory=list)
     widget_channel_id: ChannelID = field(default=None)
     discovery_splash: str = field(default=None)

@@ -5,7 +5,7 @@ from core.objects.types import ThreadID, UserID
 
 
 @dataclass
-class ThreadMember(BaseObject):
+class ThreadMemberObject(BaseObject):
     """
     ThreadMember
     """

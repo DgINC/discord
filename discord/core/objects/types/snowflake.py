@@ -6,6 +6,9 @@ T = TypeVar('T', int, str)
 
 @dataclass
 class SnowFlake(Generic[T]):
+    """
+    SnowFlake
+    """
     worker_id_bits: Final = field(default=5, init=False)
     process_id_bits: Final = field(default=5, init=False)
     increment: Final = field(default=12, init=False)
@@ -14,11 +17,18 @@ class SnowFlake(Generic[T]):
 
 @dataclass
 class SnowFlakeTimestamp(SnowFlake[T]):
+    """
+    SnowFlakeTimestamp
+    """
     __slots__ = SnowFlake.__slots__
 
     discord_epoch: Final = field(default=1420070400000, init=False)
 
     def to_unix_timestamp(self) -> int:
+        """
+
+        :return:
+        """
         ret: int
 
         if isinstance(self.value, str):

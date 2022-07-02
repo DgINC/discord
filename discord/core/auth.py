@@ -6,6 +6,9 @@ from core.api.configs import OAuthConfigInterface
 
 
 class Auth(BasicAuth):
+    """
+    Auth
+    """
     _config: ClassVar[Optional[Type[OAuthConfigInterface]]] = None
 
     def __init__(self, config: Optional[Type[OAuthConfigInterface]] = None, **kwargs):
@@ -13,5 +16,8 @@ class Auth(BasicAuth):
         self._config = config
 
     def encode(self) -> str:
-        """Encode credentials. 'Bearer %s'"""
+        """
+
+        :return:
+        """
         return f'Bearer {self._config.credentials}'

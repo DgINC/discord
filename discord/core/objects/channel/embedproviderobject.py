@@ -4,10 +4,9 @@ from core.objects import BaseObject
 
 
 @dataclass
-class EmbedField(BaseObject):
+class EmbedProviderObject(BaseObject):
     """
-    EmbedField
+    EmbedProvider
     """
     name: str
-    value: str
-    inline: bool
+    url: str

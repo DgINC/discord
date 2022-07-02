@@ -4,7 +4,7 @@ from core.objects import BaseObject
 
 
 @dataclass
-class EmbedFooter(BaseObject):
+class EmbedFooterObject(BaseObject):
     """
     EmbedFooter
     """

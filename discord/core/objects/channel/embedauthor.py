@@ -4,7 +4,7 @@ from core.objects import BaseObject
 
 
 @dataclass
-class EmbedAuthor(BaseObject):
+class EmbedAuthorObject(BaseObject):
     """
     EmbedAuthor
     """

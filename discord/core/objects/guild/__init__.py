@@ -1,9 +1,9 @@
 from enum import IntFlag, IntEnum
 from typing import Final, final
 
-from discord.core.objects.guild.guildmemberobject import GuildMemberObject
-from discord.core.objects.guild.guildobject import GuildObject
-from discord.core.objects.guild.guildpreviewobject import GuildPreviewObject
+from discord.core.objects.guild.guildmember import GuildMemberObject
+from discord.core.objects.guild.guild import GuildObject
+from discord.core.objects.guild.guildpreview import GuildPreviewObject
 
 __all__ = [
     "VerificationLevel",

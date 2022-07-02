@@ -5,7 +5,7 @@ from discord.core.objects import BaseObject
 
 
 @dataclass
-class Overwrite(BaseObject):
+class OverwriteObject(BaseObject):
     """
     Overwrite
     """

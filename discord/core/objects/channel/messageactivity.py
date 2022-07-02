@@ -5,9 +5,9 @@ from core.objects.channel import MessageType
 
 
 @dataclass
-class MessageActivity(BaseObject):
+class MessageActivityObject(BaseObject):
     """
-    MessageActivity
+    MessageActivityObject
     """
     type: MessageType
     party_id: str

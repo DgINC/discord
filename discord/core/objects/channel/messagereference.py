@@ -5,9 +5,9 @@ from core.objects.types import MessageID, ChannelID, GuildID
 
 
 @dataclass
-class MessageReference(BaseObject):
+class MessageReferenceObject(BaseObject):
     """
-    MessageReference
+    MessageReferenceObject
     """
     message_id: MessageID
     channel_id: ChannelID
