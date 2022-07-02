@@ -1,10 +1,15 @@
 from functools import wraps
 from typing import get_type_hints, get_origin, get_args, Annotated
 
-from discord.core.utils.base import MaxLen
+from discord.core.utils import MaxLen
 
 
 def check_annotations(func):
+    """
+
+    :param func:
+    :return:
+    """
     @wraps(func)
     def wrapped(**kwargs):
         # perform runtime annotation checking

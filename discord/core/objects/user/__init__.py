@@ -1,5 +1,5 @@
-__all__ = [
+__all__ = (
     "UserObject"
-]
+)
 
-from core.objects.user.user import UserObject
+from discord.core.objects.user.user import UserObject

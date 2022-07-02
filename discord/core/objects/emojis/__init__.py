@@ -1,5 +1,5 @@
-__all__ = [
+__all__ = (
     "EmojiObject"
-]
+)
 
-from core.objects.emojis.emojis import EmojiObject
+from discord.core.objects.emojis.emojis import EmojiObject

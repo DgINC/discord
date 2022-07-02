@@ -2,8 +2,8 @@ from types import SimpleNamespace
 
 from aiohttp import TraceConfig
 
-from core.traceconfig import on_request_start, on_request_end, on_request_exception
-from core.objects.types import HttpMethod
+from discord.core.objects.types import HttpMethod
+from discord.core.traceconfig import on_request_start, on_request_end, on_request_exception
 
 
 class MaxLen:

@@ -1,10 +1,14 @@
+from __future__ import annotations
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
-from discord.core.objects.baseobject import BaseObject
-from discord.core.objects.emojis import Emoji
-from discord.core.objects.guild import GuildFutures
-from discord.core.objects.stickerobjects import StickerObject
-from discord.core.objects.types.base import GuildID
+from discord.core.objects import BaseObject
+
+if TYPE_CHECKING:
+    from discord.core.objects.emojis import EmojiObject
+    from discord.core.objects.guild import GuildFutures
+    from discord.core.objects.sticker import StickerObject
+    from discord.core.objects.types import GuildID
 
 
 @dataclass
@@ -17,7 +21,7 @@ class GuildPreviewObject(BaseObject):
     icon: str
     splash: str
     discovery_splash: str
-    emojis: list[Emoji]
+    emojis: list[EmojiObject]
     features: list[GuildFutures]
     approximate_member_count: int
     approximate_presence_count: int

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from core.objects import BaseObject
+from discord.core.objects import BaseObject
 
 
 @dataclass

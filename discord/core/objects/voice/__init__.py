@@ -1,7 +1,7 @@
-__all__ = [
+__all__ = (
     "VoiceRegionObject",
     "VoiceStateObject"
-]
+)
 
-from core.objects.voice.voiceregion import VoiceRegionObject
-from core.objects.voice.voicestate import VoiceStateObject
+from discord.core.objects.voice.voiceregion import VoiceRegionObject
+from discord.core.objects.voice.voicestate import VoiceStateObject

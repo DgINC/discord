@@ -27,8 +27,12 @@ GUILDIntents = [
     "STAGE_INSTANCE_DELETE"
 ]
 
+
 @final
 class Intents(IntFlag):
+    """
+    Intents
+    """
     GUILDS: Final = 1 << 0
     GUILD_MEMBERS: Final = 1 << 1
     GUILD_BANS: Final = 1 << 2

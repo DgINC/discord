@@ -5,10 +5,9 @@ from orjson import orjson
 from pydantic.dataclasses import dataclass
 from pydantic.json import pydantic_encoder
 
-
-__all__ = [
+__all__ = (
     "BaseObject"
-]
+)
 
 
 @final

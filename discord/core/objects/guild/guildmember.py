@@ -1,8 +1,12 @@
+from __future__ import annotations
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
-from discord.core.objects.baseobject import BaseObject
-from discord.core.objects.types.base import RoleID
-from discord.core.objects.user import User
+from discord.core.objects import BaseObject
+
+if TYPE_CHECKING:
+    from discord.core.objects.types import RoleID
+    from discord.core.objects.user import UserObject
 
 
 @dataclass
@@ -10,7 +14,7 @@ class GuildMemberObject(BaseObject):
     """
     GuildMemberObject
     """
-    user: User
+    user: UserObject
     nick: str
     avatar: str
     roles: list[RoleID]

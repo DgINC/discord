@@ -2,7 +2,7 @@ from typing import ClassVar, Type, Optional
 
 from aiohttp import BasicAuth
 
-from core.api.configs import OAuthConfigInterface
+from discord.core.api.configs import OAuthConfigInterface
 
 
 class Auth(BasicAuth):
@@ -15,9 +15,13 @@ class Auth(BasicAuth):
         super(Auth, self).__init__(**kwargs)
         self._config = config
 
-    def encode(self) -> str:
+    def __new__(cls, *args, **kwargs):
+        pass
+
+    @classmethod
+    def encode(cls) -> str:
         """
 
         :return:
         """
-        return f'Bearer {self._config.credentials}'
+        return f'Bearer {cls._config.credentials}'

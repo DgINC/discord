@@ -1,11 +1,14 @@
+from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Annotated, Any
+from typing import TYPE_CHECKING
 
-from core.objects import BaseObject
-from core.objects.emojis import EmojiObject
-from core.objects.interactions import ComponentType, ButtonStyle
-from core.objects.interactions.selectoption import SelectOptionObject
-from core.utils.base import MaxLen
+from discord.core.utils import MaxLen
+from discord.core.objects import BaseObject
+
+if TYPE_CHECKING:
+    from discord.core.objects.emojis import EmojiObject
+    from discord.core.objects.interactions import ComponentType, ButtonStyle, SelectOptionObject
 
 
 @dataclass

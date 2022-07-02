@@ -1,18 +1,18 @@
 from enum import IntEnum
 from typing import final, Final
 
-__all__ = [
+__all__ = (
     "InteractionType",
     "ComponentType",
     "ButtonStyle",
     "MessageComponentObject",
     "MessageInteractionObject",
     "SelectOptionObject"
-]
+)
 
-from core.objects.interactions.messagecomponent import MessageComponentObject
-from core.objects.interactions.messageinteraction import MessageInteractionObject
-from core.objects.interactions.selectoption import SelectOptionObject
+from discord.core.objects.interactions.messagecomponent import MessageComponentObject
+from discord.core.objects.interactions.messageinteraction import MessageInteractionObject
+from discord.core.objects.interactions.selectoption import SelectOptionObject
 
 
 @final

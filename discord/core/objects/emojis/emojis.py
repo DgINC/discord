@@ -1,9 +1,13 @@
+from __future__ import annotations
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
-from core.objects import BaseObject
-from core.objects.role import RoleObject
-from core.objects.types import EmojiID
-from core.objects.user import UserObject
+from discord.core.objects import BaseObject
+
+if TYPE_CHECKING:
+    from discord.core.objects.role import RoleObject
+    from discord.core.objects.types import EmojiID
+    from discord.core.objects.user import UserObject
 
 
 @dataclass

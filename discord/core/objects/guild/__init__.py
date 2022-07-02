@@ -1,11 +1,11 @@
 from enum import IntFlag, IntEnum
 from typing import Final, final
 
-from discord.core.objects.guild.guildmember import GuildMemberObject
 from discord.core.objects.guild.guild import GuildObject
+from discord.core.objects.guild.guildmember import GuildMemberObject
 from discord.core.objects.guild.guildpreview import GuildPreviewObject
 
-__all__ = [
+__all__ = (
     "VerificationLevel",
     "MessageNotificationLevel",
     "ExplicitContentFilterLevel",
@@ -17,7 +17,7 @@ __all__ = [
     "GuildPreviewObject",
     "GuildMemberObject",
     "GuildObject"
-]
+)
 
 
 @final

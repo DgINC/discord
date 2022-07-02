@@ -1,8 +1,12 @@
+from __future__ import annotations
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
-from core.objects import BaseObject
-from core.objects.guild import GuildMemberObject
-from core.objects.types import GuildID, ChannelID, UserID
+from discord.core.objects import BaseObject
+
+if TYPE_CHECKING:
+    from discord.core.objects.guild import GuildMemberObject
+    from discord.core.objects.types import GuildID, ChannelID, UserID
 
 
 @dataclass

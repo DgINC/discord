@@ -1,8 +1,12 @@
+from __future__ import annotations
 from dataclasses import dataclass, field
+from typing import TYPE_CHECKING
 
-from core.objects import BaseObject
-from core.objects.channel import EmbedType, EmbedFooterObject, EmbedImageObject, EmbedThumbnailObject, EmbedVideoObject, \
-    EmbedProviderObject, EmbedAuthorObject, EmbedFieldObject
+from discord.core.objects import BaseObject
+
+if TYPE_CHECKING:
+    from discord.core.objects.channel import EmbedType, EmbedFooterObject, EmbedImageObject, EmbedThumbnailObject, \
+        EmbedVideoObject, EmbedProviderObject, EmbedAuthorObject, EmbedFieldObject
 
 
 @dataclass

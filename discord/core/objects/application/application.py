@@ -1,10 +1,14 @@
+from __future__ import annotations
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
-from core.objects import BaseObject
-from core.objects.team import TeamObject
-from core.objects.types import ApplicationID, GuildID, SnowFlake
-from core.objects.user import UserObject
-from discord.core.objects.application import ApplicationFlag
+
+if TYPE_CHECKING:
+    from discord.core.objects import BaseObject
+    from discord.core.objects.team import TeamObject
+    from discord.core.objects.types import ApplicationID, GuildID, GenericID
+    from discord.core.objects.user import UserObject
+    from discord.core.objects.application import ApplicationFlag
 
 
 @dataclass
@@ -26,7 +30,7 @@ class ApplicationObject(BaseObject):
     verify_key: str
     team: TeamObject
     guild_id: GuildID
-    primary_sku_id: SnowFlake
+    primary_sku_id: GenericID
     slug: str
     cover_image: str
     flags: ApplicationFlag

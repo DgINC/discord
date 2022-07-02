@@ -1,13 +1,18 @@
+from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional, Union, Annotated
+from typing import TYPE_CHECKING
 
-from core.objects import BaseObject
-from core.objects.channel import ChannelType, ThreadMetadataObject, ThreadMemberObject, AutoArchiveDuration, OverwriteObject, \
-    VideoQualityMode
-from core.objects.types import ChannelID, GuildID, MessageID, UserID, ApplicationID, CategoryID
-from core.objects.user import UserObject
-from core.objects.voice import VoiceRegionObject
-from core.utils.base import MaxLen
+
+from discord.core.utils import MaxLen
+from discord.core.objects import BaseObject
+
+if TYPE_CHECKING:
+    from discord.core.objects.channel import ChannelType, ThreadMetadataObject, ThreadMemberObject, \
+        AutoArchiveDuration, OverwriteObject, VideoQualityMode
+    from discord.core.objects.types import ChannelID, GuildID, MessageID, UserID, ApplicationID, CategoryID
+    from discord.core.objects.user import UserObject
+    from discord.core.objects.voice import VoiceRegionObject
 
 
 @dataclass

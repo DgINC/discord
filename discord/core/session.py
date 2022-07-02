@@ -6,11 +6,11 @@ from aiohttp import ClientSession, web
 from aiohttp.abc import Application
 from aiohttp.typedefs import JSONEncoder, StrOrURL
 
-from core.api.configs import OAuthConfigInterface
-from core.auth import Auth
-from core.utils import make_trace_config
 from discord.core import API_ENDPOINT_GATEWAY
+from discord.core.api.configs import OAuthConfigInterface
+from discord.core.auth import Auth
 from discord.core.objects.types import HttpMethod
+from discord.core.utils import make_trace_config
 
 
 class DiscordSession(object):
@@ -42,7 +42,7 @@ class DiscordSession(object):
         self._server = web.Application()
         self._client = ClientSession(base_url=self._base_url,
                                      auth=self._auth(self._config),
-                                     trace_configs=self.trace_config,
+                                     trace_configs=[self.trace_config],
                                      json_serialize=self._json_serialize)
         self._ws_client = ClientSession(base_url=self._base_url, json_serialize=self._json_serialize)
         return self
@@ -72,7 +72,7 @@ class DiscordSession(object):
         result: dict
         status: int
 
-        async with self._client.request(method=method, url=request, data=data, **kwargs) as resp:
+        async with self._client.request(method=method, url=request, data=data, params=kwargs) as resp:
             result = await resp.json(loads=orjson.loads)
             status = resp.status
         return result

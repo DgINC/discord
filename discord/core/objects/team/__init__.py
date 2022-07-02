@@ -1,7 +1,7 @@
-__all__ = [
+__all__ = (
     "TeamObject",
     "TeamMemberObject"
-]
+)
 
-from core.objects.team.team import TeamObject
-from core.objects.team.teammember import TeamMemberObject
+from discord.core.objects.team.team import TeamObject
+from discord.core.objects.team.teammember import TeamMemberObject

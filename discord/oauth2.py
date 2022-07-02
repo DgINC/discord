@@ -5,12 +5,12 @@ import exrex
 from aiohttp.abc import Application
 from oauthlib.oauth2 import WebApplicationClient
 
-from core import OAUTH_AUTHORIZE
-from core.api.configs import OAuthConfigInterface
-from core.api.oauth import OAuth2SessionInterface
-from core.objects.oauth2.base import DiscordScope
-from core.session import DiscordSession
-from core.utils import POST
+from discord.core import OAUTH_AUTHORIZE
+from discord.core.api.configs import OAuthConfigInterface
+from discord.core.api.oauth import OAuth2SessionInterface
+from discord.core.objects.oauth2.base import DiscordScope
+from discord.core.session import DiscordSession
+from discord.core.utils import POST
 
 
 class OAuth2(DiscordSession):

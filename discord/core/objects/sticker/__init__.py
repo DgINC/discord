@@ -1,15 +1,15 @@
-__all__ = [
+__all__ = (
     "StickerType",
     "StickerFormatType",
     "StickerObject",
     "StickerItemObject"
-]
+)
 
 from enum import IntEnum
 from typing import final, Final
 
-from core.objects.sticker.sticker import StickerObject
-from core.objects.sticker.stickeritem import StickerItemObject
+from discord.core.objects.sticker.sticker import StickerObject
+from discord.core.objects.sticker.stickeritem import StickerItemObject
 
 
 @final

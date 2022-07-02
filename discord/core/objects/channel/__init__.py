@@ -1,7 +1,7 @@
 from enum import IntEnum, IntFlag
 from typing import final, Final, NewType
 
-__all__ = [
+__all__ = (
     "EmbedType",
     "EmbedThumbnailObject",
     "EmbedImageObject",
@@ -13,7 +13,7 @@ __all__ = [
     "MessageFlags",
     "AttachmentObject",
     "ChannelObject",
-    "ChannelMention",
+    "ChannelMentionObject",
     "EmbedObject",
     "EmbedAuthorObject",
     "EmbedFieldObject",
@@ -27,23 +27,23 @@ __all__ = [
     "ReactionObject",
     "ThreadMemberObject",
     "ThreadMetadataObject"
-]
+)
 
-from core.objects.channel.attachment import AttachmentObject
-from core.objects.channel.channel import ChannelObject
-from core.objects.channel.channelmention import ChannelMention
-from core.objects.channel.embed import EmbedObject
-from core.objects.channel.embedstructure import EmbedStructureObject
-from core.objects.channel.embedauthor import EmbedAuthorObject
-from core.objects.channel.embedfieldobject import EmbedFieldObject
-from core.objects.channel.embedfooterobject import EmbedFooterObject
-from core.objects.channel.embedproviderobject import EmbedProviderObject
-from core.objects.channel.message import MessageObject
-from core.objects.channel.messagereference import MessageReferenceObject
-from core.objects.channel.overwrite import OverwriteObject
-from core.objects.channel.reaction import ReactionObject
-from core.objects.channel.threadmemberobject import ThreadMemberObject
-from core.objects.channel.threadmetadataobject import ThreadMetadataObject
+from discord.core.objects.channel.attachment import AttachmentObject
+from discord.core.objects.channel.channel import ChannelObject
+from discord.core.objects.channel.channelmentionobject import ChannelMentionObject
+from discord.core.objects.channel.embed import EmbedObject
+from discord.core.objects.channel.embedstructure import EmbedStructureObject
+from discord.core.objects.channel.embedauthor import EmbedAuthorObject
+from discord.core.objects.channel.embedfield import EmbedFieldObject
+from discord.core.objects.channel.embedfooter import EmbedFooterObject
+from discord.core.objects.channel.embedprovider import EmbedProviderObject
+from discord.core.objects.channel.message import MessageObject
+from discord.core.objects.channel.messagereference import MessageReferenceObject
+from discord.core.objects.channel.overwrite import OverwriteObject
+from discord.core.objects.channel.reaction import ReactionObject
+from discord.core.objects.channel.threadmemberobject import ThreadMemberObject
+from discord.core.objects.channel.threadmetadataobject import ThreadMetadataObject
 
 EmbedType: Final = {'rich', 'image', 'video', 'gifv', 'article', 'link'}
 

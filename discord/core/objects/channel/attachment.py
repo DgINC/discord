@@ -1,7 +1,11 @@
+from __future__ import annotations
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
-from core.objects import BaseObject
-from core.objects.types import AttachID
+
+if TYPE_CHECKING:
+    from discord.core.objects import BaseObject
+    from discord.core.objects.types import AttachID
 
 
 @dataclass

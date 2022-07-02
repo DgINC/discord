@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from enum import Enum
-from typing import Union, Final
+from typing import Union, Final, TypeAlias
 
-DiscordScope = Final[str]
+DiscordScope: TypeAlias = Final[str]
 
 
 @dataclass

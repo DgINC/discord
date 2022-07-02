@@ -1,13 +1,17 @@
+from __future__ import annotations
 from dataclasses import dataclass, field
+from typing import TYPE_CHECKING
 
-from core.objects import BaseObject
-from core.objects.channel import ChannelObject
-from core.objects.emojis import EmojiObject
-from core.objects.guild import VerificationLevel, MessageNotificationLevel, MFALevel, ExplicitContentFilterLevel, \
-    SystemChannelFlags, GuildMemberObject, GuildFutures
-from core.objects.role import RoleObject
-from core.objects.types import GuildID, UserID, ApplicationID, ChannelID
-from core.objects.voice import VoiceStateObject
+from discord.core.objects import BaseObject
+
+if TYPE_CHECKING:
+    from discord.core.objects.channel import ChannelObject
+    from discord.core.objects.emojis import EmojiObject
+    from discord.core.objects.guild import VerificationLevel, MessageNotificationLevel, MFALevel, \
+        ExplicitContentFilterLevel, SystemChannelFlags, GuildMemberObject, GuildFutures
+    from discord.core.objects.role import RoleObject
+    from discord.core.objects.types import GuildID, UserID, ApplicationID, ChannelID
+    from discord.core.objects.voice import VoiceStateObject
 
 
 @dataclass
