@@ -24,10 +24,10 @@ class MetaObject(type):
     MetaObject
     """
     def __new__(mcs, name: str, bases: Tuple[type, ...], dictionary: dict[str, Any], **kwargs: Any):
-        return super(MetaObject, mcs).__new__(mcs, name, bases, dictionary)
+        return super(MetaObject, mcs).__new__(mcs, name, bases, dictionary, **kwargs)
 
     def __init__(cls, name: str, bases: Tuple[type, ...], dictionary: dict[str, Any], **kwargs: Any):
-        super(MetaObject, cls).__init__(name, bases, dictionary)
+        super(MetaObject, cls).__init__(name, bases, dictionary, **kwargs)
 
     def __getattribute__(self, item) -> Any:
         if item == "deprecated":

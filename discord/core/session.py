@@ -1,8 +1,9 @@
+from __future__ import annotations
 import datetime
-from typing import Optional, ClassVar, Any, Type
+from typing import Optional, ClassVar, Any, Type, NoReturn
 
 import orjson
-from aiohttp import ClientSession, web
+from aiohttp import ClientSession, web, ClientConnectorError
 from aiohttp.abc import Application
 from aiohttp.typedefs import JSONEncoder, StrOrURL
 
@@ -38,7 +39,7 @@ class DiscordSession(object):
         self._auth = Auth
         self._config = config
 
-    async def __aenter__(self) -> "DiscordSession":
+    async def __aenter__(self) -> DiscordSession:
         self._server = web.Application()
         self._client = ClientSession(base_url=self._base_url,
                                      auth=self._auth(self._config),
@@ -48,7 +49,6 @@ class DiscordSession(object):
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
-        await self._client.close()
         await self._server.cleanup()
         return False
 
@@ -72,7 +72,28 @@ class DiscordSession(object):
         result: dict
         status: int
 
-        async with self._client.request(method=method, url=request, data=data, params=kwargs) as resp:
-            result = await resp.json(loads=orjson.loads)
-            status = resp.status
+        params: dict = {}
+
+        for k in kwargs:
+            if kwargs[k]:
+                params[str(k)].append(str(kwargs[k]))
+
+        try:
+            async with self._client.request(method=method, url=request, data=data, params=params) as resp:
+                if not resp.status == 200:
+                    raise Exception(f"Fetch failed {resp.status}")
+
+                result = await resp.json(loads=orjson.loads)
+                status = resp.status
+        except ClientConnectorError as e:
+            print('Connection Error', str(e))
+
         return result
+
+    async def close(self) -> NoReturn:
+        """
+        Close Client Session
+        :return: NoReturn
+        """
+        if not self._client.closed:
+            await self._client.close()

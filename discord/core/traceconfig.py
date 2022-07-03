@@ -1,11 +1,14 @@
+from __future__ import annotations
 from types import SimpleNamespace
+from typing import TYPE_CHECKING
 
-from aiohttp import TraceRequestStartParams, TraceRequestChunkSentParams, TraceResponseChunkReceivedParams, \
-    TraceRequestRedirectParams, TraceRequestEndParams, TraceRequestExceptionParams, TraceConnectionQueuedStartParams, \
-    TraceConnectionQueuedEndParams, TraceConnectionCreateStartParams, TraceConnectionCreateEndParams, \
-    TraceConnectionReuseconnParams, TraceDnsResolveHostStartParams, TraceDnsResolveHostEndParams, \
-    TraceDnsCacheHitParams, TraceDnsCacheMissParams, ClientSession
-from aiohttp.tracing import TraceRequestHeadersSentParams
+if TYPE_CHECKING:
+    from aiohttp import TraceRequestStartParams, TraceRequestChunkSentParams, TraceResponseChunkReceivedParams, \
+        TraceRequestRedirectParams, TraceRequestEndParams, TraceRequestExceptionParams, TraceConnectionQueuedStartParams, \
+        TraceConnectionQueuedEndParams, TraceConnectionCreateStartParams, TraceConnectionCreateEndParams, \
+        TraceConnectionReuseconnParams, TraceDnsResolveHostStartParams, TraceDnsResolveHostEndParams, \
+        TraceDnsCacheHitParams, TraceDnsCacheMissParams, ClientSession
+    from aiohttp.tracing import TraceRequestHeadersSentParams
 
 
 async def on_request_start(session: ClientSession, trace_config_ctx: SimpleNamespace, params: TraceRequestStartParams):
