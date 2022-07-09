@@ -1,3 +1,4 @@
+import asyncio
 from types import SimpleNamespace
 
 from aiohttp import TraceConfig
@@ -10,6 +11,7 @@ class MaxLen:
     """
     Maxlen
     """
+
     def __init__(self, value):
         self.value = value
 
@@ -29,6 +31,7 @@ def make_trace_config(name=None) -> TraceConfig:
     :param name:
     :return:
     """
+
     def _trace_config_ctx_factory(trace_request_ctx) -> "SimpleNamespace":
         return SimpleNamespace(
             name=name,
@@ -40,3 +43,21 @@ def make_trace_config(name=None) -> TraceConfig:
     trace_config.on_request_end.append(on_request_end)
     trace_config.on_request_exception.append(on_request_exception)
     return trace_config
+
+
+def synchronize_async_helper(to_await):
+    """
+
+    :param to_await:
+    :return:
+    """
+    async_response = []
+
+    async def run_and_capture_result():
+        r = await to_await
+        async_response.append(r)
+
+    loop = asyncio.get_event_loop()
+    coroutine = run_and_capture_result()
+    loop.run_until_complete(coroutine)
+    return async_response[0]

@@ -1,10 +1,13 @@
 from __future__ import annotations
-from dataclasses import dataclass, field
+
+from dataclasses import field
 from typing import Annotated, Any
 from typing import TYPE_CHECKING
 
-from discord.core.utils import MaxLen
+from pydantic.dataclasses import dataclass
+
 from discord.core.objects import BaseObject
+from discord.core.utils import MaxLen
 
 if TYPE_CHECKING:
     from discord.core.objects.emojis import EmojiObject

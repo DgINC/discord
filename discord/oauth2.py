@@ -1,5 +1,5 @@
 from random import randrange
-from typing import ClassVar, Optional, Type
+from typing import ClassVar, Optional, Type, Dict
 
 import exrex
 from aiohttp.abc import Application
@@ -57,5 +57,5 @@ class OAuth2(DiscordSession):
                                                    state=self._oauth_session.state,
                                                    **kwargs
                                                    )
-        response: dict = await self.send_request(method=POST, request=req)
+        response: Dict = await self.send_request(method=POST, request=req)
         print(response)

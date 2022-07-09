@@ -1,7 +1,10 @@
 from __future__ import annotations
-from dataclasses import dataclass, field
-from typing import Optional, Union, Any
+
+from dataclasses import field
+from typing import Optional, Union
 from typing import TYPE_CHECKING
+
+from pydantic.dataclasses import dataclass
 
 from discord.core.objects import BaseObject
 
@@ -47,8 +50,8 @@ class MessageObject(BaseObject):
     application_id: ApplicationID
     message_reference: MessageReferenceObject
     flags: MessageFlags
-    referenced_message: Optional[Any] = field(hash=False, compare=False,
-                                              repr=False)  # TODO: Type reference to "Message"
+    referenced_message: Optional[MessageObject] = field(hash=False, compare=False,
+                                                        repr=False)  # TODO: Type reference to "Message"
     interaction: MessageInteractionObject
     thread: ChannelObject
     components: list[MessageComponentObject]

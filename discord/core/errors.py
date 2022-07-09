@@ -1,10 +1,15 @@
-import orjson
+from __future__ import annotations
 
-from dataclasses import field
-from typing import List
+import logging
+import re
+from dataclasses import field, fields
+
+import orjson
 from pydantic.dataclasses import dataclass
 
-from core.objects import BaseObject
+from discord.core.objects import BaseObject
+
+log = logging.getLogger("Errors")
 
 
 @dataclass
@@ -12,32 +17,36 @@ class Error(BaseObject):
     """
     Error
     """
-    code: int
+    code: str
     message: str
-    sty: int = field(default=None, metadata={"deprecated": True})
 
 
 @dataclass
-class BaseJsonObject(BaseObject):
+class Errors(BaseObject):  # re.sub('"[_]+', '"', json_data2)
+    """
+    Errors
+    """
+    errors: list[Error]
+
+
+@dataclass
+class RequestErrorObject(BaseObject):
     """
     BaseJsonObject
     """
-    code: int
-    message: str
-    errors: List[Error]
+    code: int = None
+    errors: Errors = None
+    message: str = field(default=None, metadata={"deprecated": True})
 
 
-json_data = '{"code":50035,' \
-            '"message":"Invalid Form Body",' \
-            '"errors":[{"code":"123","message":"Command exceeds maximum size (4000)"},' \
-            '{"code":"321","message":"Command exceeds maximum size (4001)", "sty": 4001}]}'
+json_data2 = '{"code":50035, "message":"Invalid Form Body", "errors": {"_errors":[{' \
+             '"code":"APPLICATION_COMMAND_TOO_LARGE", "message":"Command exceeds maximum size (4000)"}]}} '
 
-json_data2 = '{"code":50035,' \
-            '"message":"Invalid Form Body",' \
-            '"errors":[{"code":"123","message":"Command exceeds maximum size (4000)"},' \
-            '{"code":"321","message":"Command exceeds maximum size (4001)", "sty": 4001}]}'
+strin = re.sub('"[_]+', '"', json_data2)
 
-dct: dict = orjson.loads(json_data)
+dct = orjson.loads(strin)
 
-result = BaseJsonObject(**dct)
-print(result)
+result = RequestErrorObject(**dct)
+for k in fields(result):
+    if k.metadata.get("deprecated") and not None:
+        log.warning(f'Variable "{k.name}" of {result.__class__.__name__} class is deprecated!')

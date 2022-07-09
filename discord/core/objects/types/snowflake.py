@@ -1,5 +1,7 @@
-from dataclasses import dataclass, field
+from dataclasses import field
 from typing import Final, TypeVar, Generic
+
+from pydantic.dataclasses import dataclass
 
 T = TypeVar('T', int, str)
 

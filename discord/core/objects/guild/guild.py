@@ -1,6 +1,9 @@
 from __future__ import annotations
-from dataclasses import dataclass, field
-from typing import TYPE_CHECKING
+
+from typing import TYPE_CHECKING, Any
+
+from pydantic import Field
+from pydantic.dataclasses import dataclass
 
 from discord.core.objects import BaseObject
 
@@ -57,9 +60,11 @@ class GuildObject(BaseObject):
     threads: list[ChannelObject]
     nsfw: bool
     # presences: list[] #TODO: Write presences impl
-    voice_states: list[VoiceStateObject] = field(default_factory=list)
-    members: list[GuildMemberObject] = field(default_factory=list)
-    widget_channel_id: ChannelID = field(default=None)
-    discovery_splash: str = field(default=None)
-    region: str = field(default=None)
-    features: GuildFutures = field(default_factory=list)
+    voice_states: list[VoiceStateObject] = Field(default_factory=list)
+    members: list[GuildMemberObject] = Field(default_factory=list)
+    widget_channel_id: ChannelID = Field(default=None)
+    discovery_splash: str = Field(default=None)
+    region: str = Field(default=None)
+    features: GuildFutures = Field(default_factory=list)
+    approximate_member_count: Any = Field(default=None)
+    approximate_presence_count: Any = Field(default=None)

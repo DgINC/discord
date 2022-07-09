@@ -10,6 +10,7 @@ def check_annotations(func):
     :param func:
     :return:
     """
+
     @wraps(func)
     def wrapped(**kwargs):
         # perform runtime annotation checking

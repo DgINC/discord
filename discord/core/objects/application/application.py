@@ -1,7 +1,8 @@
 from __future__ import annotations
-from dataclasses import dataclass
+
 from typing import TYPE_CHECKING
 
+from pydantic.dataclasses import dataclass
 
 if TYPE_CHECKING:
     from discord.core.objects import BaseObject

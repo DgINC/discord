@@ -1,5 +1,6 @@
 from __future__ import annotations
-from dataclasses import dataclass
+
+from pydantic.dataclasses import dataclass
 
 from discord.core.objects import BaseObject
 

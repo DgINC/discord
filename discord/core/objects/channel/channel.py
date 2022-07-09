@@ -1,11 +1,13 @@
 from __future__ import annotations
-from dataclasses import dataclass, field
+
+from dataclasses import field
 from typing import Optional, Union, Annotated
 from typing import TYPE_CHECKING
 
+from pydantic.dataclasses import dataclass
 
-from discord.core.utils import MaxLen
 from discord.core.objects import BaseObject
+from discord.core.utils import MaxLen
 
 if TYPE_CHECKING:
     from discord.core.objects.channel import ChannelType, ThreadMetadataObject, ThreadMemberObject, \

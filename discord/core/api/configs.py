@@ -12,50 +12,50 @@ class OAuthConfigInterface(ABC):
 
     @property
     @abstractmethod
-    async def client_id(self) -> int:
+    def client_id(self) -> int:
         ...
 
     @client_id.setter
     @abstractmethod
-    async def client_id(self, value) -> NoReturn:
+    def client_id(self, value) -> NoReturn:
         ...
 
     @client_id.getter
     @abstractmethod
-    async def client_id(self) -> int:
+    def client_id(self) -> int:
         ...
 
     @client_id.deleter
     @abstractmethod
-    async def client_id(self) -> NoReturn:
+    def client_id(self) -> NoReturn:
         ...
 
     @property
     @abstractmethod
-    async def client_secret(self) -> str:
+    def client_secret(self) -> str:
         ...
 
     @property
     @abstractmethod
-    async def credentials(self) -> str:
+    def credentials(self) -> str:
         ...
 
     @credentials.getter
     @abstractmethod
-    async def credentials(self) -> str:
+    def credentials(self) -> str:
         ...
 
     @credentials.setter
     @abstractmethod
-    async def credentials(self, value) -> NoReturn:
+    def credentials(self, value) -> NoReturn:
         ...
 
     @credentials.deleter
     @abstractmethod
-    async def credentials(self) -> NoReturn:
+    def credentials(self) -> NoReturn:
         ...
 
     @property
     @abstractmethod
-    async def redirect_uri(self) -> str:
+    def redirect_uri(self) -> str:
         ...

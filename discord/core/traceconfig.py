@@ -1,10 +1,12 @@
 from __future__ import annotations
+
 from types import SimpleNamespace
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from aiohttp import TraceRequestStartParams, TraceRequestChunkSentParams, TraceResponseChunkReceivedParams, \
-        TraceRequestRedirectParams, TraceRequestEndParams, TraceRequestExceptionParams, TraceConnectionQueuedStartParams, \
+        TraceRequestRedirectParams, TraceRequestEndParams, TraceRequestExceptionParams, \
+        TraceConnectionQueuedStartParams, \
         TraceConnectionQueuedEndParams, TraceConnectionCreateStartParams, TraceConnectionCreateEndParams, \
         TraceConnectionReuseconnParams, TraceDnsResolveHostStartParams, TraceDnsResolveHostEndParams, \
         TraceDnsCacheHitParams, TraceDnsCacheMissParams, ClientSession
@@ -40,7 +42,8 @@ async def on_request_redirect(session: ClientSession,
 async def on_request_end(session: ClientSession,
                          trace_config_ctx: SimpleNamespace,
                          params: TraceRequestEndParams):
-    print("Ending request")
+    print("Ending %s request for %s. I sent: %s" % (params.method, params.url, params.headers))
+    print('Sent headers: %s' % params.response.request_info.headers)
 
 
 async def on_request_exception(session: ClientSession,

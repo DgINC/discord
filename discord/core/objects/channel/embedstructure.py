@@ -1,11 +1,12 @@
 from __future__ import annotations
-from dataclasses import dataclass
+
+from pydantic.dataclasses import dataclass
 
 from discord.core.objects import BaseObject
 
 
 @dataclass
-class EmbedStructureObject(BaseObject):    # TODO: Find out the correct name of the object
+class EmbedStructureObject(BaseObject):  # TODO: Find out the correct name of the object
     """
     Embed
     """
